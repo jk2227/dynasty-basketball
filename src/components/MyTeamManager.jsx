@@ -107,16 +107,29 @@ function RFASelector({ players, rfas, onSave }) {
   );
 }
 
-function WishlistBuilder({ wishlist, onSave, remainingSlots }) {
+function WishlistBuilder({ wishlist, onSave, remainingSlots, predictedAvailable }) {
   const [search, setSearch] = useState("");
   const [current, setCurrent] = useState(wishlist);
 
   const freeAgents = useMemo(() => getFreeAgents(), []);
   const sophomores = useMemo(() => getSoonToBeSophomores(), []);
+
+  // Build a map of player name -> source team for predicted available players
+  const predictedMap = useMemo(() => {
+    const map = new Map();
+    for (const p of predictedAvailable || []) {
+      map.set(p.name, p.fromTeam);
+    }
+    return map;
+  }, [predictedAvailable]);
+
   const allAvailable = useMemo(() => {
     const set = new Set([...freeAgents, ...sophomores]);
+    for (const p of predictedAvailable || []) {
+      set.add(p.name);
+    }
     return [...set].sort((a, b) => a.localeCompare(b));
-  }, [freeAgents, sophomores]);
+  }, [freeAgents, sophomores, predictedAvailable]);
 
   const filtered = search.length >= 2
     ? allAvailable
@@ -146,7 +159,7 @@ function WishlistBuilder({ wishlist, onSave, remainingSlots }) {
         <span className="sel-count">{current.length} / {remainingSlots}</span>
       </div>
       <p className="sel-description">
-        Build a target list of free agents and upcoming sophomores for RFA and free agency.
+        Build a target list of free agents, upcoming sophomores, and predicted drops for RFA and free agency.
         You have <strong>{remainingSlots}</strong> roster slot{remainingSlots !== 1 ? "s" : ""} to fill.
       </p>
 
@@ -166,12 +179,17 @@ function WishlistBuilder({ wishlist, onSave, remainingSlots }) {
                 className="wl-dropdown-item"
                 onClick={() => addPlayer(name)}
               >
-                {name}
-                {playerStats[name] && (
-                  <span className="sel-player-stats">
-                    {playerStats[name].pts} pts
-                  </span>
-                )}
+                <span>{name}</span>
+                <span className="wl-dropdown-meta">
+                  {predictedMap.has(name) && (
+                    <span className="wl-from-team">from {predictedMap.get(name)}</span>
+                  )}
+                  {playerStats[name] && (
+                    <span className="sel-player-stats">
+                      {playerStats[name].pts} pts
+                    </span>
+                  )}
+                </span>
               </button>
             ))}
           </div>
@@ -183,6 +201,9 @@ function WishlistBuilder({ wishlist, onSave, remainingSlots }) {
           {current.map((name) => (
             <span key={name} className="wl-chip">
               {name}
+              {predictedMap.has(name) && (
+                <span className="wl-chip-source"> ({predictedMap.get(name)})</span>
+              )}
               <button className="wl-chip-remove" onClick={() => removePlayer(name)}>
                 x
               </button>
@@ -208,7 +229,7 @@ function RookieContracts({ players }) {
         <span className="sel-section-title">Rookie Contracts</span>
         <span className="sel-count">{players.length}</span>
       </div>
-      <p className="sel-description">These players are on rookie deals and don't count toward your 4 keeper slots.</p>
+      <p className="sel-description">These players are on rookie deals and don't count toward the 4 keeper slots.</p>
       <div className="sel-player-list">
         {players.map((p) => (
           <div key={p.name} className="sel-player sel-player-readonly">
@@ -228,9 +249,9 @@ function RookieContracts({ players }) {
   );
 }
 
-export function MyTeamManager({ myTeam, keepers, rfas, wishlist, saveKeepers, saveRfas, saveWishlist, saveStatus }) {
+export function TeamPlanner({ teamName, isMyTeam, keepers, rfas, wishlist, saveKeepers, saveRfas, saveWishlist, saveStatus, predictedAvailable }) {
   const [localKeepers, setLocalKeepers] = useState(keepers);
-  const players = useMemo(() => computeTeamEligibility(myTeam), [myTeam]);
+  const players = useMemo(() => computeTeamEligibility(teamName), [teamName]);
 
   const keeperEligible = players.filter((p) => !p.onRookieDeal && p.keeperEligible);
   const mustRFA = players.filter((p) => !p.onRookieDeal && !p.keeperEligible);
@@ -246,16 +267,18 @@ export function MyTeamManager({ myTeam, keepers, rfas, wishlist, saveKeepers, sa
   };
 
   return (
-    <div className="content-area">
-      <div className="summary-bar">
-        <div className="summary-item">
-          <span className="summary-value" style={{ color: "var(--accent-orange)" }}>{myTeam}</span>
-          <span className="summary-label">Your Team</span>
+    <div className={isMyTeam ? "content-area" : ""}>
+      {isMyTeam && (
+        <div className="summary-bar">
+          <div className="summary-item">
+            <span className="summary-value" style={{ color: "var(--accent-orange)" }}>{teamName}</span>
+            <span className="summary-label">Your Team</span>
+          </div>
+          {saveStatus === "saved" && (
+            <div className="save-flash">Saved!</div>
+          )}
         </div>
-        {saveStatus === "saved" && (
-          <div className="save-flash">Saved!</div>
-        )}
-      </div>
+      )}
 
       <KeeperSelector
         players={keeperEligible}
@@ -271,11 +294,17 @@ export function MyTeamManager({ myTeam, keepers, rfas, wishlist, saveKeepers, sa
         onSave={saveRfas}
       />
 
-      <WishlistBuilder
-        wishlist={wishlist}
-        onSave={saveWishlist}
-        remainingSlots={15 - 4 - 3 - rookies.length}
-      />
+      {isMyTeam && (
+        <WishlistBuilder
+          wishlist={wishlist}
+          onSave={saveWishlist}
+          remainingSlots={15 - 4 - 3 - rookies.length}
+          predictedAvailable={predictedAvailable}
+        />
+      )}
     </div>
   );
 }
+
+// Keep backward-compatible export name
+export const MyTeamManager = TeamPlanner;

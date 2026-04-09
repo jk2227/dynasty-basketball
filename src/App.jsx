@@ -7,7 +7,7 @@ import { useTeamClaim } from "./hooks/useTeamClaim.js";
 import { useSelections } from "./hooks/useSelections.js";
 import { AuthBar } from "./components/AuthBar.jsx";
 import { TeamClaimModal } from "./components/TeamClaimModal.jsx";
-import { MyTeamManager } from "./components/MyTeamManager.jsx";
+import { TeamPlanner } from "./components/MyTeamManager.jsx";
 
 function getEspnHeadshotUrl(name) {
   const id = espnPlayerIds[name];
@@ -440,14 +440,112 @@ function SophomoresView() {
   );
 }
 
+function CollapsibleTeam({ teamName, defaultOpen, children }) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <div className={`collapsible-team ${open ? "collapsible-team-open" : ""}`}>
+      <button className="collapsible-team-header" onClick={() => setOpen(!open)}>
+        <span className="collapsible-team-arrow">{open ? "\u25BC" : "\u25B6"}</span>
+        <span className="collapsible-team-name">{teamName}</span>
+      </button>
+      {open && <div className="collapsible-team-body">{children}</div>}
+    </div>
+  );
+}
+
+function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimedTeams, claimTeam, unclaimTeam, teamNames }) {
+  const {
+    allSelections,
+    getTeamSelections,
+    wishlist,
+    saveKeepers,
+    saveRfas,
+    saveWishlist,
+    predictedAvailable,
+    saveStatus,
+  } = useSelections(user, myTeam);
+
+  if (!user) {
+    return (
+      <div className="content-area">
+        <div className="plan-login-prompt">
+          <h2>Plan My Offseason</h2>
+          <p>Sign in to claim your team and manage your keepers, RFAs, and wishlist.</p>
+          <button className="auth-btn auth-btn-signin-large" onClick={signIn}>
+            Sign in with Google
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!myTeam) {
+    return (
+      <div className="content-area">
+        <AuthBar user={user} loading={authLoading} onSignIn={signIn} onSignOut={signOut} myTeam={myTeam} />
+        <TeamClaimModal claimedTeams={claimedTeams} myTeam={myTeam} onClaim={claimTeam} onUnclaim={unclaimTeam} />
+      </div>
+    );
+  }
+
+  const otherTeams = teamNames.filter((t) => t !== myTeam);
+  const mySelections = getTeamSelections(myTeam);
+
+  return (
+    <div className="content-area">
+      <AuthBar user={user} loading={authLoading} onSignIn={signIn} onSignOut={signOut} myTeam={myTeam} />
+
+      <TeamPlanner
+        teamName={myTeam}
+        isMyTeam={true}
+        keepers={mySelections.keepers}
+        rfas={mySelections.rfas}
+        wishlist={wishlist}
+        saveKeepers={(players) => saveKeepers(myTeam, players)}
+        saveRfas={(players) => saveRfas(myTeam, players)}
+        saveWishlist={saveWishlist}
+        saveStatus={saveStatus}
+        predictedAvailable={predictedAvailable}
+      />
+
+      {otherTeams.length > 0 && (
+        <div className="other-teams-section">
+          <h2 className="other-teams-heading">Other Teams</h2>
+          <p className="other-teams-description">
+            Predict what other teams will do. Unselected players become available in your wishlist search.
+          </p>
+          {otherTeams.map((team) => {
+            const sel = getTeamSelections(team);
+            return (
+              <CollapsibleTeam key={team} teamName={team} defaultOpen={false}>
+                <TeamPlanner
+                  teamName={team}
+                  isMyTeam={false}
+                  keepers={sel.keepers}
+                  rfas={sel.rfas}
+                  wishlist={[]}
+                  saveKeepers={(players) => saveKeepers(team, players)}
+                  saveRfas={(players) => saveRfas(team, players)}
+                  saveWishlist={() => {}}
+                  saveStatus={saveStatus}
+                  predictedAvailable={[]}
+                />
+              </CollapsibleTeam>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function App() {
   const teamNames = useMemo(() => getTeamNames(), []);
   const [selectedTab, setSelectedTab] = useState(teamNames[0]);
 
   const { user, loading: authLoading, signIn, signOut } = useAuth();
   const { claimedTeams, myTeam, claimTeam, unclaimTeam } = useTeamClaim(user);
-  const { keepers, rfas, wishlist, saveKeepers, saveRfas, saveWishlist, saveStatus } =
-    useSelections(user, myTeam);
 
   return (
     <div className="app">
@@ -496,53 +594,17 @@ function App() {
 
       <div className="main-content">
         {selectedTab === "__PLAN__" ? (
-          !user ? (
-            <div className="content-area">
-              <div className="plan-login-prompt">
-                <h2>Plan My Offseason</h2>
-                <p>Sign in to claim your team and manage your keepers, RFAs, and wishlist.</p>
-                <button className="auth-btn auth-btn-signin-large" onClick={signIn}>
-                  Sign in with Google
-                </button>
-              </div>
-            </div>
-          ) : !myTeam ? (
-            <div className="content-area">
-              <AuthBar
-                user={user}
-                loading={authLoading}
-                onSignIn={signIn}
-                onSignOut={signOut}
-                myTeam={myTeam}
-              />
-              <TeamClaimModal
-                claimedTeams={claimedTeams}
-                myTeam={myTeam}
-                onClaim={claimTeam}
-                onUnclaim={unclaimTeam}
-              />
-            </div>
-          ) : (
-            <div className="content-area">
-              <AuthBar
-                user={user}
-                loading={authLoading}
-                onSignIn={signIn}
-                onSignOut={signOut}
-                myTeam={myTeam}
-              />
-              <MyTeamManager
-                myTeam={myTeam}
-                keepers={keepers}
-                rfas={rfas}
-                wishlist={wishlist}
-                saveKeepers={saveKeepers}
-                saveRfas={saveRfas}
-                saveWishlist={saveWishlist}
-                saveStatus={saveStatus}
-              />
-            </div>
-          )
+          <OffseasonPlanView
+            user={user}
+            authLoading={authLoading}
+            signIn={signIn}
+            signOut={signOut}
+            myTeam={myTeam}
+            claimedTeams={claimedTeams}
+            claimTeam={claimTeam}
+            unclaimTeam={unclaimTeam}
+            teamNames={teamNames}
+          />
         ) : selectedTab === "__FA__" ? (
           <FreeAgentsView />
         ) : selectedTab === "__SOPH__" ? (
