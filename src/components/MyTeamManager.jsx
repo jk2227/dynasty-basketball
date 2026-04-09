@@ -254,14 +254,12 @@ function RookieContracts({ players }) {
   );
 }
 
-function SubmitToCommissioner({ teamName, keepers, rfas, rookies }) {
-  const rookieNames = rookies.map((p) => p.name);
+function SubmitToCommissioner({ teamName, keepers, rfas }) {
   const subject = encodeURIComponent(`${teamName} — 2026 Offseason Keeper & RFA Selections`);
   const body = encodeURIComponent(
     `${teamName} — 2026 Offseason Selections\n\n` +
     `KEEPERS (4):\n${keepers.map((n, i) => `  ${i + 1}. ${n}`).join("\n")}\n\n` +
-    `RFA SELECTIONS (3):\n${rfas.map((n, i) => `  ${i + 1}. ${n}`).join("\n")}\n\n` +
-    `ROOKIE CONTRACTS (auto-kept):\n${rookieNames.map((n, i) => `  ${i + 1}. ${n}`).join("\n")}\n`
+    `RFA SELECTIONS (3):\n${rfas.map((n, i) => `  ${i + 1}. ${n}`).join("\n")}\n`
   );
   const mailto = `mailto:championsleaguecommissioner@gmail.com?subject=${subject}&body=${body}`;
 
@@ -325,7 +323,7 @@ export function TeamPlanner({ teamName, isMyTeam, keepers, rfas, wishlist, saveK
       />
 
       {isMyTeam && keepers.length === 4 && rfas.length === 3 && (
-        <SubmitToCommissioner teamName={teamName} keepers={keepers} rfas={rfas} rookies={rookies} />
+        <SubmitToCommissioner teamName={teamName} keepers={keepers} rfas={rfas} />
       )}
 
       {isMyTeam && (
