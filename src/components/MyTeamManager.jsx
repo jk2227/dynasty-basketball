@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { computeTeamEligibility, getFreeAgents, getSoonToBeSophomores } from "../eligibility.js";
 import { playerStats } from "../data.js";
 /* eslint-disable react/prop-types */
@@ -67,6 +67,11 @@ function KeeperSelector({ players, keepers, onSave }) {
 
 function RFASelector({ players, rfas, onSave }) {
   const [selected, setSelected] = useState(rfas);
+  const playerNames = useMemo(() => new Set(players.map((p) => p.name)), [players]);
+
+  useEffect(() => {
+    setSelected((prev) => prev.filter((name) => playerNames.has(name)));
+  }, [playerNames]);
 
   const toggle = (name) => {
     setSelected((prev) =>
