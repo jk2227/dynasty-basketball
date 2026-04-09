@@ -138,6 +138,26 @@ body {
   background: rgba(0,0,0,0.15);
 }
 
+.nav-tab-plan {
+  background: var(--accent-orange);
+  color: #fff !important;
+  font-style: normal;
+  border-radius: 4px;
+  margin: 4px 4px 4px 0;
+  border-bottom: none !important;
+  margin-bottom: 1px;
+}
+
+.nav-tab-plan:hover {
+  background: #e55d00;
+}
+
+.nav-tab-plan.active {
+  background: #fff;
+  color: var(--accent-orange) !important;
+  border-bottom: none;
+}
+
 .nav-tab-special {
   color: rgba(255,255,255,0.5);
   font-style: italic;
