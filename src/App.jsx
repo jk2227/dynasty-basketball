@@ -464,9 +464,8 @@ function App() {
       <div className="nav-bar">
         <div className="nav-inner">
           <button
-            className={`nav-tab nav-tab-special ${selectedTab === "__PLAN__" ? "active" : ""}`}
+            className={`nav-tab nav-tab-plan ${selectedTab === "__PLAN__" ? "active" : ""}`}
             onClick={() => setSelectedTab("__PLAN__")}
-            style={{ color: "var(--accent-orange)", fontStyle: "normal" }}
           >
             Plan My Offseason
           </button>
