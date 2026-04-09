@@ -33,7 +33,7 @@ function KeeperSelector({ players, keepers, onSave }) {
   };
 
   const atLimit = selected.length >= 4;
-  const changed = JSON.stringify(selected.sort()) !== JSON.stringify([...keepers].sort());
+  const changed = JSON.stringify([...selected].sort()) !== JSON.stringify([...keepers].sort());
 
   return (
     <div className="sel-section">
@@ -75,7 +75,7 @@ function RFASelector({ players, rfas, onSave }) {
   };
 
   const atLimit = selected.length >= 3;
-  const changed = JSON.stringify(selected.sort()) !== JSON.stringify([...rfas].sort());
+  const changed = JSON.stringify([...selected].sort()) !== JSON.stringify([...rfas].sort());
 
   return (
     <div className="sel-section">
