@@ -454,9 +454,8 @@ function CollapsibleTeam({ teamName, defaultOpen, children }) {
   );
 }
 
-function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimedTeams, claimTeam, unclaimTeam, teamNames }) {
+function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimedTeams, claimTeam, unclaimTeam, teamNames, selections }) {
   const {
-    allSelections,
     getTeamSelections,
     wishlist,
     saveKeepers,
@@ -464,7 +463,8 @@ function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimed
     saveWishlist,
     predictedAvailable,
     saveStatus,
-  } = useSelections(user, myTeam);
+    loading,
+  } = selections;
 
   if (!user) {
     return (
@@ -485,6 +485,15 @@ function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimed
       <div className="content-area">
         <AuthBar user={user} loading={authLoading} onSignIn={signIn} onSignOut={signOut} myTeam={myTeam} />
         <TeamClaimModal claimedTeams={claimedTeams} myTeam={myTeam} onClaim={claimTeam} onUnclaim={unclaimTeam} />
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="content-area">
+        <AuthBar user={user} loading={authLoading} onSignIn={signIn} onSignOut={signOut} myTeam={myTeam} />
+        <div className="empty-state">Loading selections...</div>
       </div>
     );
   }
@@ -546,6 +555,7 @@ function App() {
 
   const { user, loading: authLoading, signIn, signOut } = useAuth();
   const { claimedTeams, myTeam, claimTeam, unclaimTeam } = useTeamClaim(user);
+  const selections = useSelections(user, myTeam);
 
   return (
     <div className="app">
@@ -604,6 +614,7 @@ function App() {
             claimTeam={claimTeam}
             unclaimTeam={unclaimTeam}
             teamNames={teamNames}
+            selections={selections}
           />
         ) : selectedTab === "__FA__" ? (
           <FreeAgentsView />
