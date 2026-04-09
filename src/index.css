@@ -793,6 +793,16 @@ body {
 .sel-save-btn:hover { opacity: 0.85; }
 .sel-save-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+.inapp-warning {
+  background: #fef3cd;
+  border: 1px solid #f0d060;
+  border-radius: var(--radius);
+  padding: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #664d03;
+}
+
 .submit-section { border-color: var(--accent-blue, #3b82f6); }
 .dot-blue { background: var(--accent-blue, #3b82f6); }
 .submit-btn { display: inline-block; text-align: center; text-decoration: none; background: var(--accent-blue, #3b82f6); }
