@@ -458,18 +458,18 @@ function App() {
             <h1>Champions League</h1>
           </div>
           <p className="subtitle">2026 Offseason Keeper Eligibility Tool</p>
-          <AuthBar
-            user={user}
-            loading={authLoading}
-            onSignIn={signIn}
-            onSignOut={signOut}
-            myTeam={myTeam}
-          />
         </div>
       </div>
 
       <div className="nav-bar">
         <div className="nav-inner">
+          <button
+            className={`nav-tab nav-tab-special ${selectedTab === "__PLAN__" ? "active" : ""}`}
+            onClick={() => setSelectedTab("__PLAN__")}
+            style={{ color: "var(--accent-orange)", fontStyle: "normal" }}
+          >
+            Plan My Offseason
+          </button>
           {teamNames.map((name) => (
             <button
               key={name}
@@ -492,51 +492,64 @@ function App() {
           >
             Free Agents
           </button>
-          {user && myTeam && (
-            <button
-              className={`nav-tab nav-tab-special ${selectedTab === "__MY_OFFSEASON__" ? "active" : ""}`}
-              onClick={() => setSelectedTab("__MY_OFFSEASON__")}
-              style={{ color: "var(--accent-orange)", fontStyle: "normal" }}
-            >
-              My Offseason
-            </button>
-          )}
         </div>
       </div>
 
       <div className="main-content">
-        {selectedTab === "__FA__" ? (
+        {selectedTab === "__PLAN__" ? (
+          !user ? (
+            <div className="content-area">
+              <div className="plan-login-prompt">
+                <h2>Plan My Offseason</h2>
+                <p>Sign in to claim your team and manage your keepers, RFAs, and wishlist.</p>
+                <button className="auth-btn auth-btn-signin-large" onClick={signIn}>
+                  Sign in with Google
+                </button>
+              </div>
+            </div>
+          ) : !myTeam ? (
+            <div className="content-area">
+              <AuthBar
+                user={user}
+                loading={authLoading}
+                onSignIn={signIn}
+                onSignOut={signOut}
+                myTeam={myTeam}
+              />
+              <TeamClaimModal
+                claimedTeams={claimedTeams}
+                myTeam={myTeam}
+                onClaim={claimTeam}
+                onUnclaim={unclaimTeam}
+              />
+            </div>
+          ) : (
+            <div className="content-area">
+              <AuthBar
+                user={user}
+                loading={authLoading}
+                onSignIn={signIn}
+                onSignOut={signOut}
+                myTeam={myTeam}
+              />
+              <MyTeamManager
+                myTeam={myTeam}
+                keepers={keepers}
+                rfas={rfas}
+                wishlist={wishlist}
+                saveKeepers={saveKeepers}
+                saveRfas={saveRfas}
+                saveWishlist={saveWishlist}
+                saveStatus={saveStatus}
+              />
+            </div>
+          )
+        ) : selectedTab === "__FA__" ? (
           <FreeAgentsView />
         ) : selectedTab === "__SOPH__" ? (
           <SophomoresView />
-        ) : selectedTab === "__MY_OFFSEASON__" && user && myTeam ? (
-          <MyTeamManager
-            myTeam={myTeam}
-            keepers={keepers}
-            rfas={rfas}
-            wishlist={wishlist}
-            saveKeepers={saveKeepers}
-            saveRfas={saveRfas}
-            saveWishlist={saveWishlist}
-            saveStatus={saveStatus}
-          />
-        ) : selectedTab === "__MY_OFFSEASON__" ? (
-          <div className="content-area">
-            <div className="empty-state">Please sign in and claim a team first.</div>
-          </div>
         ) : (
           <TeamView teamName={selectedTab} />
-        )}
-
-        {user && !myTeam && (
-          <div style={{ marginTop: "1.5rem" }}>
-            <TeamClaimModal
-              claimedTeams={claimedTeams}
-              myTeam={myTeam}
-              onClaim={claimTeam}
-              onUnclaim={unclaimTeam}
-            />
-          </div>
         )}
       </div>
     </div>
