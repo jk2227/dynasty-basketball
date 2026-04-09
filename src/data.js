@@ -299,7 +299,6 @@ export const rookieContracts = {
 
   // Expiry 2026 (deal expires this offseason - must be RFA'd with 85% bird rights)
   "Paolo Banchero": 2026,
-  "Chet Holmgren": 2026,
   "Keegan Murray": 2026,
   "Mark Williams": 2026,
   "Jalen Williams": 2026,
@@ -307,6 +306,7 @@ export const rookieContracts = {
   "Shaedon Sharpe": 2026,
 
   // Expiry 2027 (1 year remaining on rookie deal)
+  "Chet Holmgren": 2027, // redshirted 2022-23 season (missed entire year)
   "Victor Wembanyama": 2027,
   "Scoot Henderson": 2027,
   "Amen Thompson": 2027,
