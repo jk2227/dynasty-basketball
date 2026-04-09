@@ -501,22 +501,26 @@ body {
   }
 }
 
-/* Auth Bar */
-.auth-bar {
-  margin-top: 0.6rem;
+/* Auth Bar (inline in content area) */
+.auth-bar-inline {
+  margin-bottom: 1rem;
+  padding: 0.65rem 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
 .auth-bar-user {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.6rem;
   flex-wrap: wrap;
 }
 
-.auth-email {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.75);
+.auth-email-dark {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
 }
 
 .auth-team-chip {
@@ -540,15 +544,47 @@ body {
 
 .auth-btn:hover { opacity: 0.85; }
 
-.auth-btn-signin {
-  background: #fff;
-  color: #1a1a1a;
+.auth-btn-signout-dark {
+  background: var(--bg-page);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  margin-left: auto;
 }
 
-.auth-btn-signout {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
+/* Plan login prompt */
+.plan-login-prompt {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
+
+.plan-login-prompt h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.plan-login-prompt p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.auth-btn-signin-large {
+  background: var(--accent-orange);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.5rem;
+  transition: opacity 0.15s;
+}
+
+.auth-btn-signin-large:hover { opacity: 0.85; }
 
 /* Team Claim Panel */
 .claim-panel {
