@@ -454,6 +454,11 @@ function CollapsibleTeam({ teamName, defaultOpen, children }) {
   );
 }
 
+function isInAppBrowser() {
+  const ua = navigator.userAgent || navigator.vendor || "";
+  return /FBAN|FBAV|Instagram|Twitter|Snapchat|Line\/|WhatsApp|MicroMessenger|LinkedIn/i.test(ua);
+}
+
 function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimedTeams, claimTeam, unclaimTeam, teamNames, selections }) {
   const {
     getTeamSelections,
@@ -472,9 +477,16 @@ function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimed
         <div className="plan-login-prompt">
           <h2>Plan My Offseason</h2>
           <p>Sign in to claim your team and manage your keepers, RFAs, and wishlist.</p>
-          <button className="auth-btn auth-btn-signin-large" onClick={signIn}>
-            Sign in with Google
-          </button>
+          {isInAppBrowser() ? (
+            <div className="inapp-warning">
+              <p><strong>Google sign-in is blocked in this browser.</strong></p>
+              <p>Tap the menu (⋯) and select <strong>&quot;Open in Safari&quot;</strong> or <strong>&quot;Open in Chrome&quot;</strong> to sign in.</p>
+            </div>
+          ) : (
+            <button className="auth-btn auth-btn-signin-large" onClick={signIn}>
+              Sign in with Google
+            </button>
+          )}
         </div>
       </div>
     );
