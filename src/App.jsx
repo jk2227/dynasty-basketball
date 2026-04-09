@@ -444,7 +444,7 @@ function App() {
         <div className="header-inner">
           <div className="header-title-row">
             <img src="/champions-league.png" alt="Champions League" className="header-logo" />
-            <h1>Dynasty Basketball</h1>
+            <h1>Champions League</h1>
           </div>
           <p className="subtitle">2026 Offseason Keeper Eligibility Tool</p>
         </div>
