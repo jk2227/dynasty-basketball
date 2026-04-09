@@ -793,6 +793,10 @@ body {
 .sel-save-btn:hover { opacity: 0.85; }
 .sel-save-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+.submit-section { border-color: var(--accent-blue, #3b82f6); }
+.dot-blue { background: var(--accent-blue, #3b82f6); }
+.submit-btn { display: inline-block; text-align: center; text-decoration: none; background: var(--accent-blue, #3b82f6); }
+
 .save-flash {
   color: var(--accent-green);
   font-weight: 600;
