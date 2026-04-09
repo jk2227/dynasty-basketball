@@ -874,3 +874,90 @@ body {
 }
 
 .wl-chip-remove:hover { opacity: 1; }
+
+/* Wishlist source labels */
+.wl-dropdown-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.wl-from-team {
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+  font-style: italic;
+}
+
+.wl-chip-source {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Other teams section */
+.other-teams-section {
+  margin-top: 2rem;
+}
+
+.other-teams-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.other-teams-description {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Collapsible team accordion */
+.collapsible-team {
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.collapsible-team-open {
+  border-color: var(--accent-orange);
+}
+
+.collapsible-team-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: left;
+  transition: background 0.1s;
+}
+
+.collapsible-team-header:hover {
+  background: var(--bg-hover);
+}
+
+.collapsible-team-arrow {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  width: 1rem;
+  text-align: center;
+}
+
+.collapsible-team-name {
+  flex: 1;
+}
+
+.collapsible-team-body {
+  padding: 0 1rem 1rem;
+}
