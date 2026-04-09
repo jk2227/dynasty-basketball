@@ -107,7 +107,7 @@ function RFASelector({ players, rfas, onSave }) {
   );
 }
 
-function WishlistBuilder({ wishlist, onSave }) {
+function WishlistBuilder({ wishlist, onSave, remainingSlots }) {
   const [search, setSearch] = useState("");
   const [current, setCurrent] = useState(wishlist);
 
@@ -143,10 +143,11 @@ function WishlistBuilder({ wishlist, onSave }) {
       <div className="sel-section-header">
         <div className="section-dot dot-cyan" />
         <span className="sel-section-title">Wishlist / Target Players</span>
-        <span className="sel-count">{current.length}</span>
+        <span className="sel-count">{current.length} / {remainingSlots}</span>
       </div>
       <p className="sel-description">
         Build a target list of free agents and upcoming sophomores for RFA and free agency.
+        You have <strong>{remainingSlots}</strong> roster slot{remainingSlots !== 1 ? "s" : ""} to fill.
       </p>
 
       <div className="wl-search-container">
@@ -273,6 +274,7 @@ export function MyTeamManager({ myTeam, keepers, rfas, wishlist, saveKeepers, sa
       <WishlistBuilder
         wishlist={wishlist}
         onSave={saveWishlist}
+        remainingSlots={15 - 4 - 3 - rookies.length}
       />
     </div>
   );
