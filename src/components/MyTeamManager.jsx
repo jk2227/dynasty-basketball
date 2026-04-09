@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { computeTeamEligibility, getFreeAgents, getSoonToBeSophomores } from "../eligibility.js";
 import { playerStats } from "../data.js";
+/* eslint-disable react/prop-types */
 
 function PlayerCheckbox({ name, checked, onChange, disabled }) {
   const stats = playerStats[name];
@@ -196,11 +197,52 @@ function WishlistBuilder({ wishlist, onSave }) {
   );
 }
 
+function RookieContracts({ players }) {
+  if (players.length === 0) return null;
+
+  return (
+    <div className="sel-section">
+      <div className="sel-section-header">
+        <div className="section-dot dot-cyan" />
+        <span className="sel-section-title">Rookie Contracts</span>
+        <span className="sel-count">{players.length}</span>
+      </div>
+      <p className="sel-description">These players are on rookie deals and don't count toward your 4 keeper slots.</p>
+      <div className="sel-player-list">
+        {players.map((p) => (
+          <div key={p.name} className="sel-player sel-player-readonly">
+            <span className="sel-player-name">{p.name}</span>
+            <span className="badge badge-cyan">
+              Rookie - expires {p.rookieStatus.expiryYear} - ${p.rookieStatus.salary}
+            </span>
+            {playerStats[p.name] && (
+              <span className="sel-player-stats">
+                {playerStats[p.name].pts} pts / {playerStats[p.name].reb} reb / {playerStats[p.name].ast} ast
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function MyTeamManager({ myTeam, keepers, rfas, wishlist, saveKeepers, saveRfas, saveWishlist, saveStatus }) {
+  const [localKeepers, setLocalKeepers] = useState(keepers);
   const players = useMemo(() => computeTeamEligibility(myTeam), [myTeam]);
 
   const keeperEligible = players.filter((p) => !p.onRookieDeal && p.keeperEligible);
   const mustRFA = players.filter((p) => !p.onRookieDeal && !p.keeperEligible);
+  const rookies = players.filter((p) => p.onRookieDeal);
+
+  // Unselected keeper-eligible players flow into the RFA pool
+  const unkeptPlayers = keeperEligible.filter((p) => !localKeepers.includes(p.name));
+  const rfaCandidates = [...mustRFA, ...unkeptPlayers];
+
+  const handleSaveKeepers = (selected) => {
+    setLocalKeepers(selected);
+    saveKeepers(selected);
+  };
 
   return (
     <div className="content-area">
@@ -217,11 +259,13 @@ export function MyTeamManager({ myTeam, keepers, rfas, wishlist, saveKeepers, sa
       <KeeperSelector
         players={keeperEligible}
         keepers={keepers}
-        onSave={saveKeepers}
+        onSave={handleSaveKeepers}
       />
 
+      <RookieContracts players={rookies} />
+
       <RFASelector
-        players={mustRFA}
+        players={rfaCandidates}
         rfas={rfas}
         onSave={saveRfas}
       />

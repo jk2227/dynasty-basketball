@@ -770,6 +770,14 @@ body {
   color: var(--text-muted);
 }
 
+.sel-player-readonly {
+  cursor: default;
+}
+
+.sel-player-readonly:hover {
+  background: transparent;
+}
+
 .sel-save-btn {
   background: var(--accent-orange);
   color: #fff;
