@@ -338,7 +338,6 @@ export const rookieContracts = {
   "VJ Edgecombe": 2029,
   "Cedric Coward": 2029,
   "Tre Johnson": 2029,
-  "Khaman Maluach": 2029,
   "Kon Knueppel": 2029,
   "Egor Demin": 2029,
   "Derik Queen": 2029,
@@ -366,7 +365,7 @@ export const soonToBeSophomores = [
   "Brooks Barnhizer", "Rocco Zikarsky", "Amari Williams", "Javon Small",
   "Tyrese Proctor", "Kobe Sanders", "Mohamed Diawara", "John Tonje",
   "Taelon Peter", "Lachlan Olbrich", "Will Richard", "Max Shulga",
-  "Jahmai Mashack",
+  "Jahmai Mashack", "Khaman Maluach",
 ];
 
 
