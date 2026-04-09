@@ -98,6 +98,7 @@ body {
   background: var(--espn-navy-dark);
   border-bottom: 3px solid #1a1a1a;
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
