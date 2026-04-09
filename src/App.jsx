@@ -2,6 +2,12 @@ import { useState, useMemo } from "react";
 import { computeTeamEligibility, getFreeAgents, getSoonToBeSophomores, getTeamNames } from "./eligibility.js";
 import { playerStats } from "./data.js";
 import { espnPlayerIds } from "./playerIds.js";
+import { useAuth } from "./hooks/useAuth.js";
+import { useTeamClaim } from "./hooks/useTeamClaim.js";
+import { useSelections } from "./hooks/useSelections.js";
+import { AuthBar } from "./components/AuthBar.jsx";
+import { TeamClaimModal } from "./components/TeamClaimModal.jsx";
+import { MyTeamManager } from "./components/MyTeamManager.jsx";
 
 function getEspnHeadshotUrl(name) {
   const id = espnPlayerIds[name];
@@ -438,6 +444,11 @@ function App() {
   const teamNames = useMemo(() => getTeamNames(), []);
   const [selectedTab, setSelectedTab] = useState(teamNames[0]);
 
+  const { user, loading: authLoading, signIn, signOut } = useAuth();
+  const { claimedTeams, myTeam, claimTeam, unclaimTeam } = useTeamClaim(user);
+  const { keepers, rfas, wishlist, saveKeepers, saveRfas, saveWishlist, saveStatus } =
+    useSelections(user, myTeam);
+
   return (
     <div className="app">
       <div className="header">
@@ -447,6 +458,13 @@ function App() {
             <h1>Champions League</h1>
           </div>
           <p className="subtitle">2026 Offseason Keeper Eligibility Tool</p>
+          <AuthBar
+            user={user}
+            loading={authLoading}
+            onSignIn={signIn}
+            onSignOut={signOut}
+            myTeam={myTeam}
+          />
         </div>
       </div>
 
@@ -474,6 +492,15 @@ function App() {
           >
             Free Agents
           </button>
+          {user && myTeam && (
+            <button
+              className={`nav-tab nav-tab-special ${selectedTab === "__MY_OFFSEASON__" ? "active" : ""}`}
+              onClick={() => setSelectedTab("__MY_OFFSEASON__")}
+              style={{ color: "var(--accent-orange)", fontStyle: "normal" }}
+            >
+              My Offseason
+            </button>
+          )}
         </div>
       </div>
 
@@ -482,8 +509,34 @@ function App() {
           <FreeAgentsView />
         ) : selectedTab === "__SOPH__" ? (
           <SophomoresView />
+        ) : selectedTab === "__MY_OFFSEASON__" && user && myTeam ? (
+          <MyTeamManager
+            myTeam={myTeam}
+            keepers={keepers}
+            rfas={rfas}
+            wishlist={wishlist}
+            saveKeepers={saveKeepers}
+            saveRfas={saveRfas}
+            saveWishlist={saveWishlist}
+            saveStatus={saveStatus}
+          />
+        ) : selectedTab === "__MY_OFFSEASON__" ? (
+          <div className="content-area">
+            <div className="empty-state">Please sign in and claim a team first.</div>
+          </div>
         ) : (
           <TeamView teamName={selectedTab} />
+        )}
+
+        {user && !myTeam && (
+          <div style={{ marginTop: "1.5rem" }}>
+            <TeamClaimModal
+              claimedTeams={claimedTeams}
+              myTeam={myTeam}
+              onClaim={claimTeam}
+              onUnclaim={unclaimTeam}
+            />
+          </div>
         )}
       </div>
     </div>
