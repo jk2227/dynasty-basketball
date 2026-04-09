@@ -551,7 +551,7 @@ function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimed
 
 function App() {
   const teamNames = useMemo(() => getTeamNames(), []);
-  const [selectedTab, setSelectedTab] = useState(teamNames[0]);
+  const [selectedTab, setSelectedTab] = useState("__PLAN__");
 
   const { user, loading: authLoading, signIn, signOut } = useAuth();
   const { claimedTeams, myTeam, claimTeam, unclaimTeam } = useTeamClaim(user);
