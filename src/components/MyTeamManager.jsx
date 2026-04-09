@@ -254,6 +254,31 @@ function RookieContracts({ players }) {
   );
 }
 
+function SubmitToCommissioner({ teamName, keepers, rfas, rookies }) {
+  const rookieNames = rookies.map((p) => p.name);
+  const subject = encodeURIComponent(`${teamName} — 2026 Offseason Keeper & RFA Selections`);
+  const body = encodeURIComponent(
+    `${teamName} — 2026 Offseason Selections\n\n` +
+    `KEEPERS (4):\n${keepers.map((n, i) => `  ${i + 1}. ${n}`).join("\n")}\n\n` +
+    `RFA SELECTIONS (3):\n${rfas.map((n, i) => `  ${i + 1}. ${n}`).join("\n")}\n\n` +
+    `ROOKIE CONTRACTS (auto-kept):\n${rookieNames.map((n, i) => `  ${i + 1}. ${n}`).join("\n")}\n`
+  );
+  const mailto = `mailto:championsleaguecommissioner@gmail.com?subject=${subject}&body=${body}`;
+
+  return (
+    <div className="sel-section submit-section">
+      <div className="sel-section-header">
+        <div className="section-dot dot-blue" />
+        <span className="sel-section-title">Submit to Commissioner</span>
+      </div>
+      <p className="sel-description">Email your saved keeper and RFA selections to the commissioner.</p>
+      <a href={mailto} className="sel-save-btn submit-btn">
+        Send Email
+      </a>
+    </div>
+  );
+}
+
 export function TeamPlanner({ teamName, isMyTeam, keepers, rfas, wishlist, saveKeepers, saveRfas, saveWishlist, saveStatus, predictedAvailable }) {
   const [localKeepers, setLocalKeepers] = useState(keepers);
   const players = useMemo(() => computeTeamEligibility(teamName), [teamName]);
@@ -298,6 +323,10 @@ export function TeamPlanner({ teamName, isMyTeam, keepers, rfas, wishlist, saveK
         rfas={rfas}
         onSave={saveRfas}
       />
+
+      {isMyTeam && keepers.length === 4 && rfas.length === 3 && (
+        <SubmitToCommissioner teamName={teamName} keepers={keepers} rfas={rfas} rookies={rookies} />
+      )}
 
       {isMyTeam && (
         <WishlistBuilder
