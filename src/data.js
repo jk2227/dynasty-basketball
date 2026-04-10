@@ -330,6 +330,7 @@ export const rookieContracts = {
   "Bub Carrington": 2028,
   "Matas Buzelis": 2028,
   "Brandin Podziemski": 2028,
+  "Kyshawn George": 2028,
 
   // Expiry 2029 (3 years remaining on rookie deal)
   "Cooper Flagg": 2029,
