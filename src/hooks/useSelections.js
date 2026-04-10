@@ -14,6 +14,7 @@ export function useSelections(user, myTeam) {
       setLoading(false);
       return;
     }
+    setLoading(true);
 
     const [selRes, wlRes] = await Promise.all([
       supabase

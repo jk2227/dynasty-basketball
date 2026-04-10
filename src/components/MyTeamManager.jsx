@@ -26,6 +26,10 @@ function PlayerCheckbox({ name, checked, onChange, disabled }) {
 function KeeperSelector({ players, keepers, onSave }) {
   const [selected, setSelected] = useState(keepers);
 
+  useEffect(() => {
+    setSelected(keepers);
+  }, [keepers]);
+
   const toggle = (name) => {
     setSelected((prev) =>
       prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]
@@ -68,6 +72,10 @@ function KeeperSelector({ players, keepers, onSave }) {
 function RFASelector({ players, rfas, onSave }) {
   const [selected, setSelected] = useState(rfas);
   const playerNames = useMemo(() => new Set(players.map((p) => p.name)), [players]);
+
+  useEffect(() => {
+    setSelected(rfas);
+  }, [rfas]);
 
   useEffect(() => {
     setSelected((prev) => prev.filter((name) => playerNames.has(name)));
@@ -279,6 +287,11 @@ function SubmitToCommissioner({ teamName, keepers, rfas }) {
 
 export function TeamPlanner({ teamName, isMyTeam, keepers, rfas, wishlist, saveKeepers, saveRfas, saveWishlist, saveStatus, predictedAvailable }) {
   const [localKeepers, setLocalKeepers] = useState(keepers);
+
+  useEffect(() => {
+    setLocalKeepers(keepers);
+  }, [keepers]);
+
   const players = useMemo(() => computeTeamEligibility(teamName), [teamName]);
 
   const keeperEligible = players.filter((p) => !p.onRookieDeal && p.keeperEligible);
