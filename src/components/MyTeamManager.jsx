@@ -318,7 +318,16 @@ export function TeamPlanner({ teamName, isMyTeam, keepers, rfas, wishlist, saveK
           {saveStatus === "saved" && (
             <div className="save-flash">Saved!</div>
           )}
+          {saveStatus === "error" && (
+            <div className="save-flash" style={{ color: "#ff4444" }}>Save failed!</div>
+          )}
         </div>
+      )}
+      {!isMyTeam && saveStatus === "saved" && (
+        <div className="save-flash">Saved!</div>
+      )}
+      {!isMyTeam && saveStatus === "error" && (
+        <div className="save-flash" style={{ color: "#ff4444" }}>Save failed!</div>
       )}
 
       <KeeperSelector

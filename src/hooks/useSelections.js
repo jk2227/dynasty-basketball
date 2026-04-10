@@ -28,6 +28,9 @@ export function useSelections(user, myTeam) {
         .maybeSingle(),
     ]);
 
+    if (selRes.error) {
+      console.error("fetchSelections error:", selRes.error);
+    }
     if (selRes.data) {
       const map = {};
       for (const row of selRes.data) {
@@ -36,6 +39,7 @@ export function useSelections(user, myTeam) {
           rfas: row.rfas || [],
         };
       }
+      console.log("Loaded selections for teams:", Object.keys(map));
       setAllSelections(map);
     }
     if (wlRes.data) {
@@ -51,6 +55,11 @@ export function useSelections(user, myTeam) {
   const flashSave = () => {
     setSaveStatus("saved");
     setTimeout(() => setSaveStatus(null), 2000);
+  };
+
+  const flashError = () => {
+    setSaveStatus("error");
+    setTimeout(() => setSaveStatus(null), 3000);
   };
 
   const getTeamSelections = useCallback(
@@ -74,7 +83,12 @@ export function useSelections(user, myTeam) {
       },
       { onConflict: "user_id, team_name" }
     );
-    if (!error) flashSave();
+    if (error) {
+      console.error("saveKeepers error:", error);
+      flashError();
+    } else {
+      flashSave();
+    }
     return error;
   };
 
@@ -94,7 +108,12 @@ export function useSelections(user, myTeam) {
       },
       { onConflict: "user_id, team_name" }
     );
-    if (!error) flashSave();
+    if (error) {
+      console.error("saveRfas error:", error);
+      flashError();
+    } else {
+      flashSave();
+    }
     return error;
   };
 
