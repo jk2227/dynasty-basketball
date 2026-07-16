@@ -9,6 +9,7 @@ import {
   rookieContracts,
   allNBAPlayers,
   soonToBeSophomores,
+  rookieClass2026,
 } from "./data.js";
 
 function normalizeName(name) {
@@ -211,10 +212,13 @@ export function computeTeamEligibility(teamName) {
       }
     }
 
-    // Check if player is a 2025 NBA draft class rookie without a fantasy rookie contract
-    // (eligible to be drafted in the upcoming rookie draft as a sophomore)
-    const soonToBeSophSet = new Set(soonToBeSophomores.map(normalizeName));
-    const eligibleForRookieDraft = soonToBeSophSet.has(norm);
+    // Check if player is eligible for the upcoming rookie draft:
+    // either a 2025 NBA draft class rookie without a fantasy rookie contract (sophomore)
+    // or a 2026 NBA draft class rookie (freshman).
+    const eligibleDraftSet = new Set(
+      [...soonToBeSophomores, ...rookieClass2026].map(normalizeName)
+    );
+    const eligibleForRookieDraft = eligibleDraftSet.has(norm);
 
     // Special cases: players with unique situations
     let specialNote = null;
@@ -266,8 +270,10 @@ export function getFreeAgents() {
     .sort((a, b) => a.localeCompare(b));
 }
 
-// Get soon-to-be sophomores not on any roster (2025 draft class rookies without fantasy rookie contracts)
-export function getSoonToBeSophomores() {
+// Get players eligible to be drafted in the upcoming rookie draft:
+// 2025 NBA draft class rookies without fantasy rookie contracts (sophomores)
+// plus the entire 2026 NBA draft class (freshmen), minus anyone already on a roster.
+export function getEligibleForRookieDraft() {
   const rosteredPlayers = new Set();
   for (const team of Object.keys(currentRosters)) {
     for (const player of currentRosters[team]) {
@@ -275,9 +281,16 @@ export function getSoonToBeSophomores() {
     }
   }
 
-  return soonToBeSophomores
-    .filter((p) => !rosteredPlayers.has(normalizeName(p)))
-    .sort((a, b) => a.localeCompare(b));
+  const seen = new Set();
+  const result = [];
+  for (const p of [...soonToBeSophomores, ...rookieClass2026]) {
+    const norm = normalizeName(p);
+    if (rosteredPlayers.has(norm)) continue;
+    if (seen.has(norm)) continue;
+    seen.add(norm);
+    result.push(p);
+  }
+  return result.sort((a, b) => a.localeCompare(b));
 }
 
 // Get team names

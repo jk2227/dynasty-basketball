@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { computeTeamEligibility, getFreeAgents, getSoonToBeSophomores, getTeamNames } from "./eligibility.js";
+import { computeTeamEligibility, getFreeAgents, getEligibleForRookieDraft, getTeamNames } from "./eligibility.js";
 import { playerStats } from "./data.js";
 import { espnPlayerIds } from "./playerIds.js";
 import { useAuth } from "./hooks/useAuth.js";
@@ -399,33 +399,34 @@ function FreeAgentsView() {
   );
 }
 
-function SophomoresView() {
+function EligibleDraftView() {
   const [search, setSearch] = useState("");
-  const sophFreeAgents = useMemo(() => getSoonToBeSophomores(), []);
+  const eligible = useMemo(() => getEligibleForRookieDraft(), []);
 
   const filtered = search
-    ? sophFreeAgents.filter((p) => p.toLowerCase().includes(search.toLowerCase()))
-    : sophFreeAgents;
+    ? eligible.filter((p) => p.toLowerCase().includes(search.toLowerCase()))
+    : eligible;
 
   return (
     <div className="content-area">
       <div className="summary-bar">
         <div className="summary-item">
-          <span className="summary-value cyan">{sophFreeAgents.length}</span>
-          <span className="summary-label">Available Soon-to-be Sophomores</span>
+          <span className="summary-value cyan">{eligible.length}</span>
+          <span className="summary-label">Eligible players to be drafted</span>
         </div>
       </div>
 
       <p className="info-text">
-        Current NBA rookies (2025 draft class) not on any fantasy rookie contract.
-        These players are eligible to be drafted in the upcoming rookie draft as sophomores.
+        2025 NBA draft class rookies not on any fantasy rookie contract (sophomores)
+        and the full 2026 NBA draft class (freshmen). All are eligible to be drafted
+        in the upcoming rookie draft.
       </p>
 
       <div className="search-container">
         <input
           className="search-input"
           type="text"
-          placeholder="Search sophomores..."
+          placeholder="Search eligible players..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -434,7 +435,7 @@ function SophomoresView() {
       <SortableTable players={filtered} />
 
       {filtered.length === 0 && (
-        <div className="empty-state">No sophomores match your search.</div>
+        <div className="empty-state">No eligible players match your search.</div>
       )}
     </div>
   );
@@ -603,7 +604,7 @@ function App() {
             className={`nav-tab nav-tab-special ${selectedTab === "__SOPH__" ? "active" : ""}`}
             onClick={() => setSelectedTab("__SOPH__")}
           >
-            Soon-to-be Sophs
+            Eligible players to be drafted
           </button>
           <button
             className={`nav-tab nav-tab-special ${selectedTab === "__FA__" ? "active" : ""}`}
@@ -631,7 +632,7 @@ function App() {
         ) : selectedTab === "__FA__" ? (
           <FreeAgentsView />
         ) : selectedTab === "__SOPH__" ? (
-          <SophomoresView />
+          <EligibleDraftView />
         ) : (
           <TeamView teamName={selectedTab} />
         )}

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { computeTeamEligibility, getFreeAgents, getSoonToBeSophomores } from "../eligibility.js";
+import { computeTeamEligibility, getFreeAgents, getEligibleForRookieDraft } from "../eligibility.js";
 import { playerStats } from "../data.js";
 /* eslint-disable react/prop-types */
 
@@ -125,7 +125,7 @@ function WishlistBuilder({ wishlist, onSave, remainingSlots, predictedAvailable 
   const [current, setCurrent] = useState(wishlist);
 
   const freeAgents = useMemo(() => getFreeAgents(), []);
-  const sophomores = useMemo(() => getSoonToBeSophomores(), []);
+  const sophomores = useMemo(() => getEligibleForRookieDraft(), []);
 
   // Build a map of player name -> source team for predicted available players
   const predictedMap = useMemo(() => {
