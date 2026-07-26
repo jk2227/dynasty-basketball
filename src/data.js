@@ -1,15 +1,15 @@
 // Current Rosters (2025-2026 season)
 export const currentRosters = {
   "Team Droptop": ["Donovan Mitchell", "Devin Booker", "Jarace Walker", "Micah Potter", "LaMelo Ball", "Julius Randle", "Jalen Williams", "Jonathan Kuminga", "Herbert Jones", "Jalen Brunson", "Tyler Herro", "Andrew Nembhard", "Dejounte Murray", "Nickeil Alexander-Walker", "Cade Cunningham"],
-  "Tompkins CAT": ["James Harden", "Reed Sheppard", "Kristaps Porzingis", "Kon Knueppel", "Brice Sensabaugh", "Jalen Suggs", "Taylor Hendricks", "Victor Wembanyama", "Nikola Jokic", "Trey Murphy III", "Evan Mobley", "Alex Sarr", "Cedric Coward", "Kris Dunn", "Daniss Jenkins", "Tyrese Haliburton"],
-  "Tysons Traffic": ["Shai Gilgeous-Alexander", "De'Anthony Melton", "Kawhi Leonard", "Scottie Barnes", "Jarrett Allen", "Cam Spencer", "DeMar DeRozan", "Franz Wagner", "Isaiah Hartenstein", "Moussa Diabate", "Ausar Thompson", "Onyeka Okongwu", "Trae Young", "Donovan Clingan", "Kel'el Ware", "Egor Demin", "Isaiah Collier"],
+  "Tompkins CAT": ["James Harden", "Kristaps Porzingis", "Kon Knueppel", "Brice Sensabaugh", "Jalen Suggs", "Taylor Hendricks", "Victor Wembanyama", "Nikola Jokic", "Trey Murphy III", "Evan Mobley", "Alex Sarr", "Cedric Coward", "Kris Dunn", "Daniss Jenkins", "Tyrese Haliburton", "Darius Acuff Jr.", "Brayden Burries"],
+  "Tysons Traffic": ["Shai Gilgeous-Alexander", "De'Anthony Melton", "Kawhi Leonard", "Scottie Barnes", "Jarrett Allen", "Cam Spencer", "DeMar DeRozan", "Franz Wagner", "Isaiah Hartenstein", "Moussa Diabate", "Ausar Thompson", "Onyeka Okongwu", "Trae Young", "Donovan Clingan", "Kel'el Ware", "Egor Demin", "Isaiah Collier", "Reed Sheppard"],
   "Scranton Stranglers": ["Derrick White", "Amen Thompson", "Matas Buzelis", "Chet Holmgren", "Myles Turner", "Ryan Rollins", "Cooper Flagg", "Josh Giddey", "Precious Achiuwa", "Nique Clifford", "OG Anunoby", "De'Aaron Fox", "Immanuel Quickley", "Joel Embiid", "Ty Jerome", "Tyrese Maxey", "Moses Moody"],
-  "Nuclear Guam": ["Dylan Harper", "Bilal Coulibaly", "Duncan Robinson", "Karl-Anthony Towns", "Jakob Poeltl", "Jrue Holiday", "Kevin Durant", "Devin Vassell", "Mark Williams", "Tre Jones", "Zaccharie Risacher", "Jamal Murray", "Brook Lopez", "Paul George", "Collin Murray-Boyles", "Jaren Jackson Jr.", "Anthony Davis"],
-  "Richmond Rogues": ["Darius Garland", "Josh Hart", "Mikal Bridges", "Andrew Wiggins", "Jay Huff", "Russell Westbrook", "Kyle Filipowski", "Brandon Ingram", "Bennedict Mathurin", "Michael Porter Jr.", "Tre Johnson", "Jaylen Brown", "LeBron James", "Santi Aldama", "Stephon Castle", "Lauri Markkanen"],
-  "Boston Jellyfam": ["Anfernee Simons", "Anthony Edwards", "Rui Hachimura", "Giannis Antetokounmpo", "Deandre Ayton", "RJ Barrett", "Zion Williamson", "Luka Doncic", "Austin Reaves", "John Collins", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Jerami Grant", "CJ McCollum", "Dereck Lively II", "Zach Edey"],
-  "Wolf Wall": ["Collin Gillespie", "Desmond Bane", "Jaden McDaniels", "Deni Avdija", "Naz Reid", "Payton Pritchard", "Pascal Siakam", "Stephen Curry", "Donte DiVincenzo", "Cason Wallace", "Dyson Daniels", "Bam Adebayo", "Quentin Grimes", "Ajay Mitchell", "GG Jackson", "Thomas Sorber"],
-  "Samsung Synchro": ["Kevin Porter Jr.", "Brandon Miller", "Paolo Banchero", "Ace Bailey", "Rudy Gobert", "Brandin Podziemski", "P.J. Washington", "Alperen Sengun", "Ryan Kalkbrenner", "Maxime Raynaud", "Jalen Johnson", "Norman Powell", "Jayson Tatum", "Julian Champagnie", "Draymond Green", "Kyshawn George", "Walker Kessler"],
-  "Frequency Vibes": ["Grayson Allen", "Jalen Green", "Toumani Camara", "Tari Eason", "Jalen Duren", "Nolan Traore", "Saddiq Bey", "Miles Bridges", "Jaime Jaquez Jr.", "Derik Queen", "Keegan Murray", "Keyonte George", "Jeremiah Fears", "Coby White", "Domantas Sabonis", "Kyrie Irving"],
+  "Nuclear Guam": ["Dylan Harper", "Bilal Coulibaly", "Duncan Robinson", "Karl-Anthony Towns", "Jakob Poeltl", "Jrue Holiday", "Kevin Durant", "Devin Vassell", "Mark Williams", "Tre Jones", "Zaccharie Risacher", "Jamal Murray", "Brook Lopez", "Paul George", "Collin Murray-Boyles", "Jaren Jackson Jr.", "Anthony Davis", "Keaton Wagler"],
+  "Richmond Rogues": ["Darius Garland", "Josh Hart", "Mikal Bridges", "Andrew Wiggins", "Jay Huff", "Russell Westbrook", "Kyle Filipowski", "Brandon Ingram", "Bennedict Mathurin", "Michael Porter Jr.", "Tre Johnson", "Jaylen Brown", "LeBron James", "Santi Aldama", "Stephon Castle", "Lauri Markkanen", "Mikel Brown Jr."],
+  "Boston Jellyfam": ["Anfernee Simons", "Anthony Edwards", "Rui Hachimura", "Giannis Antetokounmpo", "Deandre Ayton", "RJ Barrett", "Zion Williamson", "Luka Doncic", "Austin Reaves", "John Collins", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Jerami Grant", "CJ McCollum", "Dereck Lively II", "Zach Edey", "Caleb Wilson"],
+  "Wolf Wall": ["Collin Gillespie", "Desmond Bane", "Jaden McDaniels", "Deni Avdija", "Naz Reid", "Payton Pritchard", "Pascal Siakam", "Stephen Curry", "Donte DiVincenzo", "Cason Wallace", "Dyson Daniels", "Bam Adebayo", "Quentin Grimes", "Ajay Mitchell", "GG Jackson", "Thomas Sorber", "Darryn Peterson"],
+  "Samsung Synchro": ["Kevin Porter Jr.", "Brandon Miller", "Paolo Banchero", "Ace Bailey", "Rudy Gobert", "Brandin Podziemski", "P.J. Washington", "Alperen Sengun", "Ryan Kalkbrenner", "Maxime Raynaud", "Jalen Johnson", "Norman Powell", "Jayson Tatum", "Julian Champagnie", "Draymond Green", "Kyshawn George", "Walker Kessler", "Cameron Boozer"],
+  "Frequency Vibes": ["Grayson Allen", "Jalen Green", "Toumani Camara", "Tari Eason", "Jalen Duren", "Nolan Traore", "Saddiq Bey", "Miles Bridges", "Jaime Jaquez Jr.", "Derik Queen", "Keegan Murray", "Keyonte George", "Jeremiah Fears", "Coby White", "Domantas Sabonis", "Kyrie Irving", "AJ Dybantsa", "Yaxel Lendeborg"],
 };
 
 // 2025 Keepers (going into 2025-2026 season)
@@ -282,6 +282,17 @@ export const rookieDrafts = {
     { pick: 19, player: "Nique Clifford", team: "Scranton Stranglers" },
     { pick: 20, player: "Liam McNeeley", team: "Tompkins CAT" },
   ],
+  "2026": [
+    { pick: 1, player: "Cameron Boozer", team: "Samsung Synchro" },
+    { pick: 2, player: "AJ Dybantsa", team: "Frequency Vibes" },
+    { pick: 3, player: "Caleb Wilson", team: "Boston Jellyfam" },
+    { pick: 4, player: "Darryn Peterson", team: "Wolf Wall" },
+    { pick: 5, player: "Keaton Wagler", team: "Nuclear Guam" },
+    { pick: 6, player: "Mikel Brown Jr.", team: "Richmond Rogues" },
+    { pick: 7, player: "Yaxel Lendeborg", team: "Frequency Vibes" },
+    { pick: 8, player: "Darius Acuff Jr.", team: "Tompkins CAT" },
+    { pick: 9, player: "Brayden Burries", team: "Tompkins CAT" },
+  ],
 };
 
 // Authoritative rookie contract expiry data from league spreadsheet
@@ -352,6 +363,17 @@ export const rookieContracts = {
   "Maxime Raynaud": 2029,
   "Kyle Filipowski": 2029,
   "Liam McNeeley": 2029,
+
+  // Expiry 2030 (drafted in 2026 rookie draft - 4 years remaining on rookie deal)
+  "Cameron Boozer": 2030,
+  "AJ Dybantsa": 2030,
+  "Caleb Wilson": 2030,
+  "Darryn Peterson": 2030,
+  "Keaton Wagler": 2030,
+  "Mikel Brown Jr.": 2030,
+  "Yaxel Lendeborg": 2030,
+  "Darius Acuff Jr.": 2030,
+  "Brayden Burries": 2030,
 };
 
 // Soon-to-be sophomores: 2025 NBA Draft class rookies NOT on a fantasy rookie contract
