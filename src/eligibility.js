@@ -86,13 +86,18 @@ function getRookieSalary(player, rookieLookup) {
   const info = rookieLookup[norm];
   if (!info) return 2; // FA/waiver rookies: $2 to keep
 
-  const { pick } = info;
+  const { pick, draftYear } = info;
   // 1st round picks 1-4: $5 first season, $3 keeper seasons after
   // 1st round picks 5-10: $3 first season, $3 keeper seasons after
   // 2nd round picks (11+): Free when drafted, $2 keeper seasons after
-  if (pick <= 4) return 3; // keeper season salary (not first season)
-  if (pick <= 10) return 3;
-  return 2; // 2nd round
+  if (draftYear === 2026) {
+    // Upcoming season is this player's first season
+    if (pick <= 4) return 5;
+    if (pick <= 10) return 3;
+    return 0; // 2nd round: free when drafted
+  }
+  if (pick <= 10) return 3; // 1st round keeper seasons
+  return 2; // 2nd round keeper seasons
 }
 
 // Check if a player has ever been RFA'd (which ends their rookie deal)
@@ -218,7 +223,7 @@ export function computeTeamEligibility(teamName) {
     const eligibleDraftSet = new Set(
       [...soonToBeSophomores, ...rookieClass2026].map(normalizeName)
     );
-    const eligibleForRookieDraft = eligibleDraftSet.has(norm);
+    const eligibleForRookieDraft = eligibleDraftSet.has(norm) && !onRookieDeal;
 
     // Special cases: players with unique situations
     let specialNote = null;
