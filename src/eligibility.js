@@ -189,12 +189,7 @@ export function computeTeamEligibility(teamName) {
     if (comingOffRookie) {
       birdRights = { discount: 85, reason: "Coming off Rookie Deal" };
     } else if (acquiredIn2025Offseason) {
-      const wasMaxKept = kept2024 && kept2025;
-      if (wasMaxKept) {
-        birdRights = { discount: 95, reason: "Coming off Max Contract" };
-      } else {
-        birdRights = { discount: 90, reason: "Added during 2025 offseason" };
-      }
+      birdRights = { discount: 90, reason: "Added during 2025 offseason" };
     }
 
     let acquisitionMethod = "";
