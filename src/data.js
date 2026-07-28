@@ -3,7 +3,7 @@ export const currentRosters = {
   "Team Droptop": ["Donovan Mitchell", "Devin Booker", "Jarace Walker", "Micah Potter", "LaMelo Ball", "Julius Randle", "Jalen Williams", "Jonathan Kuminga", "Herbert Jones", "Jalen Brunson", "Tyler Herro", "Andrew Nembhard", "Dejounte Murray", "Nickeil Alexander-Walker", "Cade Cunningham"],
   "Tompkins CAT": ["James Harden", "Kristaps Porzingis", "Kon Knueppel", "Brice Sensabaugh", "Jalen Suggs", "Taylor Hendricks", "Victor Wembanyama", "Nikola Jokic", "Trey Murphy III", "Evan Mobley", "Alex Sarr", "Cedric Coward", "Kris Dunn", "Daniss Jenkins", "Tyrese Haliburton", "Darius Acuff Jr.", "Brayden Burries"],
   "Tysons Traffic": ["Shai Gilgeous-Alexander", "De'Anthony Melton", "Kawhi Leonard", "Scottie Barnes", "Jarrett Allen", "Cam Spencer", "DeMar DeRozan", "Franz Wagner", "Isaiah Hartenstein", "Moussa Diabate", "Ausar Thompson", "Onyeka Okongwu", "Trae Young", "Donovan Clingan", "Kel'el Ware", "Egor Demin", "Isaiah Collier", "Reed Sheppard"],
-  "Scranton Stranglers": ["Derrick White", "Amen Thompson", "Matas Buzelis", "Chet Holmgren", "Myles Turner", "Ryan Rollins", "Cooper Flagg", "Josh Giddey", "Precious Achiuwa", "Nique Clifford", "OG Anunoby", "De'Aaron Fox", "Immanuel Quickley", "Joel Embiid", "Ty Jerome", "Tyrese Maxey", "Moses Moody"],
+  "Scranton Stranglers": ["Derrick White", "Amen Thompson", "Matas Buzelis", "Chet Holmgren", "Myles Turner", "Ryan Rollins", "Cooper Flagg", "Josh Giddey", "Precious Achiuwa", "Nique Clifford", "OG Anunoby", "De'Aaron Fox", "Immanuel Quickley", "Joel Embiid", "Ty Jerome", "Tyrese Maxey", "Moses Moody", "Hannes Steinbach"],
   "Nuclear Guam": ["Dylan Harper", "Bilal Coulibaly", "Duncan Robinson", "Karl-Anthony Towns", "Jakob Poeltl", "Jrue Holiday", "Kevin Durant", "Devin Vassell", "Mark Williams", "Tre Jones", "Zaccharie Risacher", "Jamal Murray", "Brook Lopez", "Paul George", "Collin Murray-Boyles", "Jaren Jackson Jr.", "Anthony Davis", "Keaton Wagler"],
   "Richmond Rogues": ["Darius Garland", "Josh Hart", "Mikal Bridges", "Andrew Wiggins", "Jay Huff", "Russell Westbrook", "Kyle Filipowski", "Brandon Ingram", "Bennedict Mathurin", "Michael Porter Jr.", "Tre Johnson", "Jaylen Brown", "LeBron James", "Santi Aldama", "Stephon Castle", "Lauri Markkanen", "Mikel Brown Jr."],
   "Boston Jellyfam": ["Anfernee Simons", "Anthony Edwards", "Rui Hachimura", "Giannis Antetokounmpo", "Deandre Ayton", "RJ Barrett", "Zion Williamson", "Luka Doncic", "Austin Reaves", "John Collins", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Jerami Grant", "CJ McCollum", "Dereck Lively II", "Zach Edey", "Caleb Wilson"],
@@ -292,6 +292,7 @@ export const rookieDrafts = {
     { pick: 7, player: "Yaxel Lendeborg", team: "Frequency Vibes" },
     { pick: 8, player: "Darius Acuff Jr.", team: "Tompkins CAT" },
     { pick: 9, player: "Brayden Burries", team: "Tompkins CAT" },
+    { pick: 10, player: "Hannes Steinbach", team: "Scranton Stranglers" },
   ],
 };
 
@@ -374,6 +375,7 @@ export const rookieContracts = {
   "Yaxel Lendeborg": 2030,
   "Darius Acuff Jr.": 2030,
   "Brayden Burries": 2030,
+  "Hannes Steinbach": 2030,
 };
 
 // Soon-to-be sophomores: 2025 NBA Draft class rookies NOT on a fantasy rookie contract
