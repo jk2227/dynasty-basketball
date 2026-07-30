@@ -341,7 +341,7 @@ export const rookieContracts = {
   "Kel'el Ware": 2028,
   "Bub Carrington": 2028,
   "Matas Buzelis": 2028,
-  "Brandin Podziemski": 2028,
+  // Brandin Podziemski: dropped after being drafted, so his rookie deal is void (not a rookie contract for Samsung Synchro)
   "Kyshawn George": 2028,
 
   // Expiry 2029 (3 years remaining on rookie deal)
