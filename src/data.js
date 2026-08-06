@@ -12,6 +12,20 @@ export const currentRosters = {
   "Frequency Vibes": ["Grayson Allen", "Jalen Green", "Toumani Camara", "Tari Eason", "Jalen Duren", "Nolan Traore", "Saddiq Bey", "Miles Bridges", "Jaime Jaquez Jr.", "Derik Queen", "Keegan Murray", "Keyonte George", "Jeremiah Fears", "Coby White", "Domantas Sabonis", "Kyrie Irving", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain", "Dejounte Murray"],
 };
 
+// Auction budgets for the 2026 offseason (before rookie fees)
+export const teamBudgets = {
+  "Frequency Vibes": 339,
+  "Nuclear Guam": 306,
+  "Richmond Rogues": 329,
+  "Scranton Stranglers": 325,
+  "Team Droptop": 280,
+  "Samsung Synchro": 345,
+  "Tompkins CAT": 206,
+  "Tysons Traffic": 289,
+  "Wolf Wall": 306,
+  "Boston Jellyfam": 302,
+};
+
 // 2025 Keepers (going into 2025-2026 season)
 export const keepers2025 = {
   "Boston Jellyfam": ["Anthony Edwards", "Giannis Antetokounmpo", "Ja Morant", "Zion Williamson"],

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { computeTeamEligibility, getFreeAgents, getEligibleForRookieDraft, getTeamNames } from "./eligibility.js";
-import { playerStats } from "./data.js";
+import { playerStats, teamBudgets } from "./data.js";
 import { espnPlayerIds } from "./playerIds.js";
 import { useAuth } from "./hooks/useAuth.js";
 import { useTeamClaim } from "./hooks/useTeamClaim.js";
@@ -186,8 +186,27 @@ function TeamView({ teamName }) {
   const keeperEligible = players.filter((p) => !p.onRookieDeal && p.keeperEligible);
   const mustRFA = players.filter((p) => !p.onRookieDeal && !p.keeperEligible);
 
+  const budget = teamBudgets[teamName];
+  const rookieFees = rookies.reduce((sum, p) => sum + p.rookieStatus.salary, 0);
+
   return (
     <div className="content-area">
+      {budget != null && (
+        <div className="summary-bar">
+          <div className="summary-item">
+            <span className="summary-value muted">${budget}</span>
+            <span className="summary-label">Budget</span>
+          </div>
+          <div className="summary-item">
+            <span className="summary-value red">-${rookieFees}</span>
+            <span className="summary-label">Rookie Fees</span>
+          </div>
+          <div className="summary-item">
+            <span className="summary-value green">${budget - rookieFees}</span>
+            <span className="summary-label">After Rookie Fees</span>
+          </div>
+        </div>
+      )}
       <div className="summary-bar">
         <div className="summary-item">
           <span className="summary-value green">{keeperEligible.length}</span>
@@ -441,6 +460,62 @@ function EligibleDraftView() {
   );
 }
 
+function BudgetsView() {
+  const rows = useMemo(() => {
+    return getTeamNames()
+      .map((team) => {
+        const budget = teamBudgets[team];
+        const rookies = computeTeamEligibility(team).filter((p) => p.onRookieDeal);
+        const fees = rookies.reduce((sum, p) => sum + p.rookieStatus.salary, 0);
+        return {
+          team,
+          budget: budget ?? 0,
+          fees,
+          anticipated: (budget ?? 0) - fees,
+          feePlayers: rookies.filter((p) => p.rookieStatus.salary > 0),
+        };
+      })
+      .sort((a, b) => b.anticipated - a.anticipated);
+  }, []);
+
+  return (
+    <div className="content-area">
+      <p className="info-text">
+        Each team&apos;s auction budget for the 2026 offseason, minus the rookie
+        fees owed for players on rookie deals (1st round picks 1-4: $5 first
+        season; picks 5-10: $3; 2nd round: free when drafted, $2 in keeper
+        seasons; FA/waiver rookies: $2).
+      </p>
+      <table className="stats-table">
+        <thead>
+          <tr>
+            <th className="col-name">Team</th>
+            <th className="col-stat">Budget</th>
+            <th className="col-stat">Rookie Fees</th>
+            <th className="col-stat">After Rookie Fees</th>
+            <th className="col-status">Fees Owed On</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.team}>
+              <td className="col-name">{r.team}</td>
+              <td className="col-stat">${r.budget}</td>
+              <td className="col-stat">{r.fees > 0 ? `-$${r.fees}` : "$0"}</td>
+              <td className="col-stat"><strong>${r.anticipated}</strong></td>
+              <td className="col-status">
+                {r.feePlayers.length > 0
+                  ? r.feePlayers.map((p) => `${p.name} ($${p.rookieStatus.salary})`).join(", ")
+                  : "-"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function CollapsibleTeam({ teamName, defaultOpen, children }) {
   const [open, setOpen] = useState(defaultOpen);
 
@@ -601,6 +676,12 @@ function App() {
             </button>
           ))}
           <button
+            className={`nav-tab nav-tab-special ${selectedTab === "__BUDGETS__" ? "active" : ""}`}
+            onClick={() => setSelectedTab("__BUDGETS__")}
+          >
+            Budgets
+          </button>
+          <button
             className={`nav-tab nav-tab-special ${selectedTab === "__SOPH__" ? "active" : ""}`}
             onClick={() => setSelectedTab("__SOPH__")}
           >
@@ -629,6 +710,8 @@ function App() {
             teamNames={teamNames}
             selections={selections}
           />
+        ) : selectedTab === "__BUDGETS__" ? (
+          <BudgetsView />
         ) : selectedTab === "__FA__" ? (
           <FreeAgentsView />
         ) : selectedTab === "__SOPH__" ? (
