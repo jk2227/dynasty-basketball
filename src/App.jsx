@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { computeTeamEligibility, getFreeAgents, getEligibleForRookieDraft, getTeamNames } from "./eligibility.js";
-import { playerStats, teamBudgets } from "./data.js";
+import { playerStats, teamBudgets, keepers2026, rfas2026, ROSTER_SIZE } from "./data.js";
 import { espnPlayerIds } from "./playerIds.js";
 import { useAuth } from "./hooks/useAuth.js";
 import { useTeamClaim } from "./hooks/useTeamClaim.js";
@@ -182,9 +182,13 @@ function TeamSectionTable({ players, extraColumn }) {
 function TeamView({ teamName }) {
   const players = useMemo(() => computeTeamEligibility(teamName), [teamName]);
 
-  const rookies = players.filter((p) => p.onRookieDeal);
-  const keeperEligible = players.filter((p) => !p.onRookieDeal && p.keeperEligible);
-  const mustRFA = players.filter((p) => !p.onRookieDeal && !p.keeperEligible);
+  const keeperSet = new Set(keepers2026[teamName] || []);
+  const rfaSet = new Set(rfas2026[teamName] || []);
+  const keepers = players.filter((p) => keeperSet.has(p.name));
+  const rfas = players.filter((p) => rfaSet.has(p.name));
+  const rookies = players.filter((p) => p.onRookieDeal && !keeperSet.has(p.name) && !rfaSet.has(p.name));
+  // RFAs don't count against the roster limit - only keepers + rookie contracts do
+  const freeSpace = ROSTER_SIZE - keepers.length - rookies.length;
 
   const budget = teamBudgets[teamName];
   const rookieFees = rookies.reduce((sum, p) => sum + p.rookieStatus.salary, 0);
@@ -209,37 +213,53 @@ function TeamView({ teamName }) {
       )}
       <div className="summary-bar">
         <div className="summary-item">
-          <span className="summary-value green">{keeperEligible.length}</span>
-          <span className="summary-label">Keeper Eligible</span>
+          <span className="summary-value green">{keepers.length}</span>
+          <span className="summary-label">Keepers</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-value red">{rfas.length}</span>
+          <span className="summary-label">RFAs</span>
         </div>
         <div className="summary-item">
           <span className="summary-value cyan">{rookies.length}</span>
           <span className="summary-label">Rookie Deals</span>
         </div>
         <div className="summary-item">
-          <span className="summary-value red">{mustRFA.length}</span>
-          <span className="summary-label">Must RFA/Release</span>
-        </div>
-        <div className="summary-item">
-          <span className="summary-value muted">{players.length}</span>
-          <span className="summary-label">Total Roster</span>
+          <span className="summary-value muted">{freeSpace}</span>
+          <span className="summary-label">Free Space (of {ROSTER_SIZE})</span>
         </div>
       </div>
 
-      {keeperEligible.length > 0 && (
+      {keepers.length > 0 && (
         <div className="section">
           <div className="section-header">
             <div className="section-dot dot-green" />
-            <span className="section-title">Keeper Eligible</span>
-            <span className="section-count">{keeperEligible.length}</span>
+            <span className="section-title">2026 Keepers</span>
+            <span className="section-count">{keepers.length}</span>
           </div>
-          <TeamSectionTable players={keeperEligible} extraColumn={(p) => (
+          <TeamSectionTable players={keepers} extraColumn={(p) => (
             <>
-              <span className="badge badge-green">Keeper - expires {2026 + p.keeperYearsRemaining}</span>
+              <span className="badge badge-green">2026 Keeper</span>
               {p.birdRights && <span className="badge badge-orange" style={{marginLeft: 4}}>Bird {p.birdRights.discount}%</span>}
               {p.consecutiveKeeperYears > 0 && <span className="badge badge-gray" style={{marginLeft: 4}}>Kept {p.consecutiveKeeperYears}x</span>}
               {p.specialNote && <span className="badge badge-gray" style={{marginLeft: 4}}>{p.specialNote}</span>}
-              {p.eligibleForRookieDraft && <span className="badge badge-purple" style={{marginLeft: 4}}>Eligible for upcoming rookie draft</span>}
+            </>
+          )} />
+        </div>
+      )}
+
+      {rfas.length > 0 && (
+        <div className="section">
+          <div className="section-header">
+            <div className="section-dot dot-red" />
+            <span className="section-title">2026 RFAs (don't count toward roster space)</span>
+            <span className="section-count">{rfas.length}</span>
+          </div>
+          <TeamSectionTable players={rfas} extraColumn={(p) => (
+            <>
+              <span className="badge badge-red">RFA - bidding pending</span>
+              {p.birdRights && <span className="badge badge-orange" style={{marginLeft: 4}}>Bird {p.birdRights.discount}%</span>}
+              {p.consecutiveKeeperYears > 0 && <span className="badge badge-gray" style={{marginLeft: 4}}>Kept {p.consecutiveKeeperYears}x</span>}
             </>
           )} />
         </div>
@@ -261,23 +281,6 @@ function TeamView({ teamName }) {
         </div>
       )}
 
-      {mustRFA.length > 0 && (
-        <div className="section">
-          <div className="section-header">
-            <div className="section-dot dot-red" />
-            <span className="section-title">Must be RFA'd or Released</span>
-            <span className="section-count">{mustRFA.length}</span>
-          </div>
-          <TeamSectionTable players={mustRFA} extraColumn={(p) => (
-            <>
-              <span className="badge badge-red">Must RFA/Release</span>
-              {p.birdRights && <span className="badge badge-orange" style={{marginLeft: 4}}>Bird {p.birdRights.discount}%</span>}
-              {p.consecutiveKeeperYears > 0 && <span className="badge badge-gray" style={{marginLeft: 4}}>Kept {p.consecutiveKeeperYears}x</span>}
-              {p.eligibleForRookieDraft && <span className="badge badge-purple" style={{marginLeft: 4}}>Eligible for upcoming rookie draft</span>}
-            </>
-          )} />
-        </div>
-      )}
     </div>
   );
 }

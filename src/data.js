@@ -1,15 +1,49 @@
-// Current Rosters (2025-2026 season)
+// League roster limit. RFAs do not count against it - only keepers + rookie contracts do.
+export const ROSTER_SIZE = 15;
+
+// Current Offseason Rosters (2026 offseason, after official keeper/RFA selections).
+// Each roster = 2026 keepers + 2026 RFAs (bidding pending) + players still on rookie contracts.
+// Everyone else was released to the free agent pool.
+// Note: De'Aaron Fox is listed as a Frequency Vibes keeper in the league sheet (previously on Scranton).
 export const currentRosters = {
-  "Team Droptop": ["Donovan Mitchell", "Devin Booker", "Jarace Walker", "Micah Potter", "LaMelo Ball", "Julius Randle", "Jalen Williams", "Jonathan Kuminga", "Herbert Jones", "Jalen Brunson", "Tyler Herro", "Andrew Nembhard", "Nickeil Alexander-Walker", "Cade Cunningham"],
-  "Tompkins CAT": ["James Harden", "Kristaps Porzingis", "Kon Knueppel", "Brice Sensabaugh", "Jalen Suggs", "Taylor Hendricks", "Victor Wembanyama", "Nikola Jokic", "Trey Murphy III", "Evan Mobley", "Cedric Coward", "Kris Dunn", "Daniss Jenkins", "Tyrese Haliburton", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
-  "Tysons Traffic": ["Shai Gilgeous-Alexander", "De'Anthony Melton", "Kawhi Leonard", "Scottie Barnes", "Jarrett Allen", "Cam Spencer", "DeMar DeRozan", "Franz Wagner", "Isaiah Hartenstein", "Moussa Diabate", "Ausar Thompson", "Onyeka Okongwu", "Trae Young", "Donovan Clingan", "Kel'el Ware", "Egor Demin", "Isaiah Collier", "Reed Sheppard", "Kasparas Jakucionis", "Alex Sarr"],
-  "Scranton Stranglers": ["Derrick White", "Amen Thompson", "Matas Buzelis", "Chet Holmgren", "Myles Turner", "Ryan Rollins", "Cooper Flagg", "Josh Giddey", "Precious Achiuwa", "Nique Clifford", "OG Anunoby", "De'Aaron Fox", "Immanuel Quickley", "Joel Embiid", "Ty Jerome", "Tyrese Maxey", "Moses Moody"],
-  "Nuclear Guam": ["Dylan Harper", "Bilal Coulibaly", "Duncan Robinson", "Karl-Anthony Towns", "Jakob Poeltl", "Jrue Holiday", "Kevin Durant", "Devin Vassell", "Mark Williams", "Tre Jones", "Zaccharie Risacher", "Jamal Murray", "Brook Lopez", "Paul George", "Collin Murray-Boyles", "Jaren Jackson Jr.", "Anthony Davis", "Keaton Wagler", "Kingston Flemings"],
-  "Richmond Rogues": ["Darius Garland", "Josh Hart", "Mikal Bridges", "Andrew Wiggins", "Jay Huff", "Russell Westbrook", "Kyle Filipowski", "Brandon Ingram", "Bennedict Mathurin", "Michael Porter Jr.", "Tre Johnson", "Jaylen Brown", "LeBron James", "Santi Aldama", "Stephon Castle", "Lauri Markkanen", "Mikel Brown Jr.", "Nate Ament"],
-  "Boston Jellyfam": ["Anfernee Simons", "Anthony Edwards", "Rui Hachimura", "Giannis Antetokounmpo", "Deandre Ayton", "RJ Barrett", "Zion Williamson", "Luka Doncic", "Austin Reaves", "John Collins", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Jerami Grant", "CJ McCollum", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara"],
-  "Wolf Wall": ["Collin Gillespie", "Desmond Bane", "Jaden McDaniels", "Deni Avdija", "Naz Reid", "Payton Pritchard", "Pascal Siakam", "Stephen Curry", "Donte DiVincenzo", "Cason Wallace", "Dyson Daniels", "Bam Adebayo", "Quentin Grimes", "Ajay Mitchell", "GG Jackson", "Thomas Sorber", "Darryn Peterson", "Yanic Konan Niederhauser"],
-  "Samsung Synchro": ["Kevin Porter Jr.", "Brandon Miller", "Paolo Banchero", "Ace Bailey", "Rudy Gobert", "Brandin Podziemski", "P.J. Washington", "Alperen Sengun", "Ryan Kalkbrenner", "Maxime Raynaud", "Jalen Johnson", "Norman Powell", "Jayson Tatum", "Julian Champagnie", "Draymond Green", "Kyshawn George", "Walker Kessler", "Cameron Boozer", "Khaman Maluach"],
-  "Frequency Vibes": ["Grayson Allen", "Jalen Green", "Toumani Camara", "Tari Eason", "Jalen Duren", "Nolan Traore", "Saddiq Bey", "Miles Bridges", "Jaime Jaquez Jr.", "Derik Queen", "Keegan Murray", "Keyonte George", "Jeremiah Fears", "Coby White", "Domantas Sabonis", "Kyrie Irving", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain", "Dejounte Murray"],
+  "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "LaMelo Ball", "Jalen Williams", "Julius Randle"],
+  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Tyrese Haliburton", "Kristaps Porzingis", "Jalen Suggs", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
+  "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis"],
+  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Joel Embiid", "Ryan Rollins", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Nique Clifford"],
+  "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings"],
+  "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "LeBron James", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament"],
+  "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Giannis Antetokounmpo", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara"],
+  "Wolf Wall": ["Stephen Curry", "Bam Adebayo", "Pascal Siakam", "Deni Avdija", "Desmond Bane", "Payton Pritchard", "Jaden McDaniels", "Thomas Sorber", "Darryn Peterson", "Yanic Konan Niederhauser"],
+  "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Alperen Sengun", "Walker Kessler", "Paolo Banchero", "Rudy Gobert", "Norman Powell", "Brandon Miller", "Ace Bailey", "Ryan Kalkbrenner", "Maxime Raynaud", "Kyshawn George", "Cameron Boozer", "Khaman Maluach"],
+  "Frequency Vibes": ["Kyrie Irving", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Domantas Sabonis", "Keegan Murray", "Jalen Duren", "Jaime Jaquez Jr.", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain"],
+};
+
+// 2026 Keepers (official selections, going into 2026-2027 season)
+export const keepers2026 = {
+  "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic"],
+  "Frequency Vibes": ["Kyrie Irving", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox"],
+  "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns"],
+  "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart"],
+  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby"],
+  "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham"],
+  "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Alperen Sengun", "Walker Kessler"],
+  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III"],
+  "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes"],
+  "Wolf Wall": ["Stephen Curry", "Bam Adebayo", "Pascal Siakam", "Deni Avdija"],
+};
+
+// 2026 RFAs (official designations - bidding has not started yet)
+export const rfas2026 = {
+  "Boston Jellyfam": ["Giannis Antetokounmpo", "Zion Williamson", "Ja Morant"],
+  "Frequency Vibes": ["Domantas Sabonis", "Keegan Murray", "Jalen Duren"],
+  "Nuclear Guam": ["Mark Williams", "Jamal Murray", "Paul George"],
+  "Richmond Rogues": ["Darius Garland", "LeBron James", "Jaylen Brown"],
+  "Scranton Stranglers": ["Joel Embiid", "Ryan Rollins", "Immanuel Quickley"],
+  "Team Droptop": ["LaMelo Ball", "Jalen Williams", "Julius Randle"],
+  "Samsung Synchro": ["Paolo Banchero", "Rudy Gobert", "Norman Powell"],
+  "Tompkins CAT": ["Tyrese Haliburton", "Kristaps Porzingis", "Jalen Suggs"],
+  "Tysons Traffic": ["Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan"],
+  "Wolf Wall": ["Desmond Bane", "Payton Pritchard", "Jaden McDaniels"],
 };
 
 // Auction budgets for the 2026 offseason (before rookie fees)
