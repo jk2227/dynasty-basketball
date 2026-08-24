@@ -9,12 +9,12 @@ export const currentRosters = {
   "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "LaMelo Ball", "Jalen Williams", "Julius Randle"],
   "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Tyrese Haliburton", "Kristaps Porzingis", "Jalen Suggs", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
   "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis"],
-  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Joel Embiid", "Ryan Rollins", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Nique Clifford"],
+  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Joel Embiid", "Ryan Rollins", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg"],
   "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings"],
   "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "LeBron James", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament"],
   "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Giannis Antetokounmpo", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara"],
   "Wolf Wall": ["Stephen Curry", "Bam Adebayo", "Pascal Siakam", "Deni Avdija", "Desmond Bane", "Payton Pritchard", "Jaden McDaniels", "Thomas Sorber", "Darryn Peterson", "Yanic Konan Niederhauser"],
-  "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Alperen Sengun", "Walker Kessler", "Paolo Banchero", "Rudy Gobert", "Norman Powell", "Brandon Miller", "Ace Bailey", "Ryan Kalkbrenner", "Maxime Raynaud", "Kyshawn George", "Cameron Boozer", "Khaman Maluach"],
+  "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Alperen Sengun", "Walker Kessler", "Paolo Banchero", "Rudy Gobert", "Norman Powell", "Brandon Miller", "Ace Bailey", "Maxime Raynaud", "Cameron Boozer", "Khaman Maluach"],
   "Frequency Vibes": ["Kyrie Irving", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Domantas Sabonis", "Keegan Murray", "Jalen Duren", "Jaime Jaquez Jr.", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain"],
 };
 
@@ -48,16 +48,16 @@ export const rfas2026 = {
 
 // Auction budgets for the 2026 offseason (before rookie fees)
 export const teamBudgets = {
-  "Frequency Vibes": 339,
+  "Boston Jellyfam": 302,
+  "Frequency Vibes": 309,
   "Nuclear Guam": 306,
   "Richmond Rogues": 329,
-  "Scranton Stranglers": 325,
+  "Scranton Stranglers": 355,
   "Team Droptop": 280,
   "Samsung Synchro": 345,
   "Tompkins CAT": 256,
   "Tysons Traffic": 239,
   "Wolf Wall": 306,
-  "Boston Jellyfam": 302,
 };
 
 // 2025 Keepers (going into 2025-2026 season)
