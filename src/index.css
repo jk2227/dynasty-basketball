@@ -975,3 +975,43 @@ body {
 .collapsible-team-body {
   padding: 0 1rem 1rem;
 }
+
+/* RFA bidding */
+.bid-row { cursor: default; flex-wrap: wrap; }
+.bid-owner {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.bid-input-wrap {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.bid-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.bid-input {
+  width: 4.5rem;
+  padding: 0.3rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  font-family: inherit;
+}
+.bid-input:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+}
+.bid-warning {
+  color: var(--accent-red);
+  font-size: 0.85rem;
+  margin: 0.5rem 0 1rem;
+  font-weight: 600;
+}

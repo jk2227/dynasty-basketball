@@ -5,9 +5,11 @@ import { espnPlayerIds } from "./playerIds.js";
 import { useAuth } from "./hooks/useAuth.js";
 import { useTeamClaim } from "./hooks/useTeamClaim.js";
 import { useSelections } from "./hooks/useSelections.js";
+import { useBids } from "./hooks/useBids.js";
 import { AuthBar } from "./components/AuthBar.jsx";
 import { TeamClaimModal } from "./components/TeamClaimModal.jsx";
 import { TeamPlanner } from "./components/MyTeamManager.jsx";
+import { RFABidding } from "./components/RFABidding.jsx";
 
 function getEspnHeadshotUrl(name) {
   const id = espnPlayerIds[name];
@@ -555,6 +557,20 @@ function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimed
     saveStatus,
     loading,
   } = selections;
+  const bidState = useBids(user, myTeam);
+
+  const myBudgetInfo = useMemo(() => {
+    if (!myTeam) return null;
+    const players = computeTeamEligibility(myTeam);
+    const keeperSet = new Set(keepers2026[myTeam] || []);
+    const rfaSet = new Set(rfas2026[myTeam] || []);
+    const rookies = players.filter((p) => p.onRookieDeal && !keeperSet.has(p.name) && !rfaSet.has(p.name));
+    const fees = rookies.reduce((sum, p) => sum + p.rookieStatus.salary, 0);
+    return {
+      budgetAfterFees: (teamBudgets[myTeam] ?? 0) - fees,
+      freeSlots: ROSTER_SIZE - keeperSet.size - rookies.length,
+    };
+  }, [myTeam]);
 
   if (!user) {
     return (
@@ -614,6 +630,23 @@ function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimed
         saveStatus={saveStatus}
         predictedAvailable={predictedAvailable}
       />
+
+      <div className="other-teams-section">
+        <h2 className="other-teams-heading">RFA Bidding</h2>
+        <p className="other-teams-description">
+          The official 2026 RFAs, grouped by bidding round. Enter your sealed bids and match limits, then email them to the commissioner.
+        </p>
+        <RFABidding
+          myTeam={myTeam}
+          budgetAfterFees={myBudgetInfo.budgetAfterFees}
+          freeSlots={myBudgetInfo.freeSlots}
+          bids={bidState.bids}
+          matchLimits={bidState.matchLimits}
+          saveBids={bidState.saveBids}
+          saveMatchLimits={bidState.saveMatchLimits}
+          saveStatus={bidState.saveStatus}
+        />
+      </div>
 
       {otherTeams.length > 0 && (
         <div className="other-teams-section">
