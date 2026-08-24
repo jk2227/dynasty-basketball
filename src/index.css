@@ -986,6 +986,30 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
+.bid-owner-cash { text-transform: none; letter-spacing: normal; }
+
+.team-cash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.4rem 1rem;
+}
+.team-cash-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--radius);
+}
+.team-cash-mine {
+  background: var(--bg);
+  border: 1px solid var(--accent-green);
+}
+.team-cash-name { color: var(--text-secondary); }
+.team-cash-amounts { white-space: nowrap; }
+.team-cash-amounts strong { color: var(--accent-green); }
+.team-cash-arrow { color: var(--text-secondary); }
 .bid-input-wrap {
   margin-left: auto;
   display: flex;

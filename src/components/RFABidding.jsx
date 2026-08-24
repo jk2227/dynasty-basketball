@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
-import { rfas2026, playerStats, rookieContracts } from "../data.js";
+import { rfas2026, playerStats, rookieContracts, teamBudgets } from "../data.js";
+import { computeTeamEligibility, getTeamNames } from "../eligibility.js";
 
 const ROUND_COUNT = 3;
 
@@ -15,12 +16,56 @@ function getRounds() {
 
 const matchDiscount = (name) => (rookieContracts[name] === 2026 ? 85 : 90);
 
-function BidRow({ player, owner, isMine, value, onChange }) {
+// team -> { budget, afterFees } using the same rookie-fee math as the Budgets tab
+function getTeamCash() {
+  const cash = {};
+  for (const team of getTeamNames()) {
+    const budget = teamBudgets[team] ?? 0;
+    const fees = computeTeamEligibility(team)
+      .filter((p) => p.onRookieDeal)
+      .reduce((sum, p) => sum + p.rookieStatus.salary, 0);
+    cash[team] = { budget, afterFees: budget - fees };
+  }
+  return cash;
+}
+
+function TeamCashPanel({ teamCash, myTeam }) {
+  const rows = Object.entries(teamCash).sort((a, b) => b[1].afterFees - a[1].afterFees);
+  return (
+    <div className="sel-section">
+      <div className="sel-section-header">
+        <div className="section-dot dot-green" />
+        <span className="sel-section-title">Team Budgets</span>
+      </div>
+      <p className="sel-description">
+        What every team has to spend: current budget, and what&apos;s left after rookie
+        contract fees pay out.
+      </p>
+      <div className="team-cash-grid">
+        {rows.map(([team, { budget, afterFees }]) => (
+          <div key={team} className={`team-cash-row${team === myTeam ? " team-cash-mine" : ""}`}>
+            <span className="team-cash-name">{team}</span>
+            <span className="team-cash-amounts">
+              ${budget} <span className="team-cash-arrow">→</span> <strong>${afterFees}</strong>
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BidRow({ player, owner, ownerCash, isMine, value, onChange }) {
   const stats = playerStats[player];
   return (
     <div className="sel-player sel-player-readonly bid-row">
       <span className="sel-player-name">{player}</span>
-      <span className="bid-owner">{isMine ? "your RFA" : owner}</span>
+      <span className="bid-owner">
+        {isMine ? "your RFA" : owner}
+        {!isMine && ownerCash && (
+          <span className="bid-owner-cash"> · ${ownerCash.budget} / ${ownerCash.afterFees} after fees</span>
+        )}
+      </span>
       {isMine && (
         <span className="badge badge-orange">you match at {matchDiscount(player)}%</span>
       )}
@@ -55,7 +100,7 @@ function roundMailto(teamName, entries, roundNum, bids) {
   return `mailto:championsleaguecommissioner@gmail.com?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
 }
 
-function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSave }) {
+function RoundSection({ roundNum, entries, myTeam, teamCash, draft, setDraft, saved, onSave }) {
   const biddable = entries.filter(({ owner }) => owner !== myTeam);
   const changed = biddable.some(({ player }) => (draft[player] ?? null) !== (saved[player] ?? null));
 
@@ -89,6 +134,7 @@ function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSav
             key={player}
             player={player}
             owner={owner}
+            ownerCash={teamCash[owner]}
             isMine={owner === myTeam}
             value={draft[player]}
             onChange={handleChange}
@@ -117,6 +163,7 @@ function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSav
 
 export function RFABidding({ myTeam, budgetAfterFees, freeSlots, bids, saveBids, saveStatus }) {
   const rounds = useMemo(() => getRounds(), []);
+  const teamCash = useMemo(() => getTeamCash(), []);
 
   // draft = saved bids + unsaved edits, keyed by player
   const [draft, setDraft] = useState({ ...bids });
@@ -171,12 +218,15 @@ export function RFABidding({ myTeam, budgetAfterFees, freeSlots, bids, saveBids,
         </p>
       )}
 
+      <TeamCashPanel teamCash={teamCash} myTeam={myTeam} />
+
       {rounds.map((roundEntries, i) => (
         <RoundSection
           key={i}
           roundNum={i + 1}
           entries={roundEntries}
           myTeam={myTeam}
+          teamCash={teamCash}
           draft={draft}
           setDraft={setDraft}
           saved={bids}
