@@ -806,6 +806,8 @@ body {
 .submit-section { border-color: var(--accent-blue, #3b82f6); }
 .dot-blue { background: var(--accent-blue, #3b82f6); }
 .submit-btn { display: inline-block; text-align: center; text-decoration: none; background: var(--accent-blue, #3b82f6); }
+.submit-btn-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.submit-btn-row .submit-btn { flex: 1 1 10rem; }
 
 .save-flash {
   color: var(--accent-green);

@@ -94,19 +94,14 @@ function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSav
 }
 
 function EmailBids({ teamName, rounds, myTeam, bids }) {
-  const lines = [];
-  rounds.forEach((entries, i) => {
+  const roundMailto = (entries, roundNum) => {
     const bidLines = entries
       .filter(({ player, owner }) => owner !== myTeam && bids[player] != null)
       .map(({ player, owner }) => `  ${player} (${owner}): $${bids[player]}`);
-    lines.push(`ROUND ${i + 1} BIDS:`);
-    lines.push(bidLines.length ? bidLines.join("\n") : "  (no bids)");
-    lines.push("");
-  });
-
-  const subject = encodeURIComponent(`${teamName} — 2026 RFA Bids`);
-  const body = encodeURIComponent(`${teamName} — 2026 RFA Bids\n\n${lines.join("\n")}`);
-  const mailto = `mailto:championsleaguecommissioner@gmail.com?subject=${subject}&body=${body}`;
+    const title = `${teamName} — 2026 RFA Bids — Round ${roundNum}`;
+    const body = `${title}\n\nROUND ${roundNum} BIDS:\n${bidLines.length ? bidLines.join("\n") : "  (no bids)"}\n`;
+    return `mailto:championsleaguecommissioner@gmail.com?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+  };
 
   return (
     <div className="sel-section submit-section">
@@ -114,10 +109,16 @@ function EmailBids({ teamName, rounds, myTeam, bids }) {
         <div className="section-dot dot-blue" />
         <span className="sel-section-title">Submit Bids to Commissioner</span>
       </div>
-      <p className="sel-description">Email your saved bids for all three rounds.</p>
-      <a href={mailto} className="sel-save-btn submit-btn">
-        Email My Bids
-      </a>
+      <p className="sel-description">
+        Email your saved bids to the commissioner one round at a time.
+      </p>
+      <div className="submit-btn-row">
+        {rounds.map((entries, i) => (
+          <a key={i} href={roundMailto(entries, i + 1)} className="sel-save-btn submit-btn">
+            Email Round {i + 1} Bids
+          </a>
+        ))}
+      </div>
     </div>
   );
 }
