@@ -22,34 +22,33 @@ function BidRow({ player, owner, isMine, value, onChange }) {
       <span className="sel-player-name">{player}</span>
       <span className="bid-owner">{isMine ? "your RFA" : owner}</span>
       {isMine && (
-        <span className="badge badge-orange">match at {matchDiscount(player)}%</span>
+        <span className="badge badge-orange">you match at {matchDiscount(player)}%</span>
       )}
       {stats && stats.pts != null && (
         <span className="sel-player-stats">
           {stats.pts} pts / {stats.reb} reb / {stats.ast} ast
         </span>
       )}
-      <span className="bid-input-wrap">
-        <span className="bid-label">{isMine ? "match up to $" : "bid $"}</span>
-        <input
-          className="bid-input"
-          type="number"
-          min="0"
-          placeholder="-"
-          value={value ?? ""}
-          onChange={(e) => onChange(player, e.target.value)}
-        />
-      </span>
+      {!isMine && (
+        <span className="bid-input-wrap">
+          <span className="bid-label">bid $</span>
+          <input
+            className="bid-input"
+            type="number"
+            min="0"
+            placeholder="-"
+            value={value ?? ""}
+            onChange={(e) => onChange(player, e.target.value)}
+          />
+        </span>
+      )}
     </div>
   );
 }
 
 function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSave }) {
-  const changed = entries.some(({ player }) => {
-    const d = draft[player];
-    const s = saved[player];
-    return (d ?? null) !== (s ?? null);
-  });
+  const biddable = entries.filter(({ owner }) => owner !== myTeam);
+  const changed = biddable.some(({ player }) => (draft[player] ?? null) !== (saved[player] ?? null));
 
   const handleChange = (player, raw) => {
     const num = raw === "" ? null : Math.max(0, Math.floor(Number(raw)));
@@ -67,12 +66,13 @@ function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSav
         <div className="section-dot dot-red" />
         <span className="sel-section-title">RFA Round {roundNum}</span>
         <span className="sel-count">
-          {entries.filter(({ player }) => draft[player] != null).length} bids
+          {biddable.filter(({ player }) => draft[player] != null).length} bids
         </span>
       </div>
       <p className="sel-description">
-        Enter sealed bids on other teams&apos; round {roundNum} RFAs, and the max price you&apos;d
-        match on your own. Leave blank to pass. Bids are private to you until emailed.
+        Enter sealed bids on other teams&apos; round {roundNum} RFAs. Leave blank to pass.
+        Bids are private to you until emailed. You can&apos;t bid on your own RFA — you match
+        the winning bid instead.
       </p>
       <div className="sel-player-list">
         {entries.map(({ player, owner }) => (
@@ -93,21 +93,14 @@ function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSav
   );
 }
 
-function EmailBids({ teamName, rounds, myTeam, bids, matchLimits }) {
+function EmailBids({ teamName, rounds, myTeam, bids }) {
   const lines = [];
   rounds.forEach((entries, i) => {
     const bidLines = entries
       .filter(({ player, owner }) => owner !== myTeam && bids[player] != null)
       .map(({ player, owner }) => `  ${player} (${owner}): $${bids[player]}`);
-    const matchLines = entries
-      .filter(({ player, owner }) => owner === myTeam && matchLimits[player] != null)
-      .map(({ player }) => `  ${player}: match up to $${matchLimits[player]}`);
     lines.push(`ROUND ${i + 1} BIDS:`);
     lines.push(bidLines.length ? bidLines.join("\n") : "  (no bids)");
-    if (matchLines.length) {
-      lines.push(`ROUND ${i + 1} MATCH LIMITS:`);
-      lines.push(matchLines.join("\n"));
-    }
     lines.push("");
   });
 
@@ -121,7 +114,7 @@ function EmailBids({ teamName, rounds, myTeam, bids, matchLimits }) {
         <div className="section-dot dot-blue" />
         <span className="sel-section-title">Submit Bids to Commissioner</span>
       </div>
-      <p className="sel-description">Email your saved bids and match limits for all three rounds.</p>
+      <p className="sel-description">Email your saved bids for all three rounds.</p>
       <a href={mailto} className="sel-save-btn submit-btn">
         Email My Bids
       </a>
@@ -129,36 +122,31 @@ function EmailBids({ teamName, rounds, myTeam, bids, matchLimits }) {
   );
 }
 
-export function RFABidding({ myTeam, budgetAfterFees, freeSlots, bids, matchLimits, saveBids, saveMatchLimits, saveStatus }) {
+export function RFABidding({ myTeam, budgetAfterFees, freeSlots, bids, saveBids, saveStatus }) {
   const rounds = useMemo(() => getRounds(), []);
 
-  // draft = saved values + unsaved edits, keyed by player
-  const [draft, setDraft] = useState({ ...bids, ...matchLimits });
+  // draft = saved bids + unsaved edits, keyed by player
+  const [draft, setDraft] = useState({ ...bids });
   useEffect(() => {
-    setDraft({ ...bids, ...matchLimits }); // eslint-disable-line react-hooks/set-state-in-effect
-  }, [bids, matchLimits]);
+    setDraft({ ...bids }); // eslint-disable-line react-hooks/set-state-in-effect
+  }, [bids]);
 
   const myPlayers = useMemo(() => new Set(rfas2026[myTeam] || []), [myTeam]);
 
-  const totalCommitted = Object.entries(draft).reduce((sum, [player, amt]) => {
-    // matches cost the bird-discounted price; bids cost face value
-    return sum + (myPlayers.has(player) ? Math.ceil((amt * matchDiscount(player)) / 100) : amt);
-  }, 0);
-  const bidCount = Object.keys(draft).filter((p) => !myPlayers.has(p)).length;
-  const matchCount = Object.keys(draft).filter((p) => myPlayers.has(p)).length;
+  const entries = Object.entries(draft).filter(([p]) => !myPlayers.has(p));
+  const totalCommitted = entries.reduce((sum, [, amt]) => sum + amt, 0);
+  const bidCount = entries.length;
   const overBudget = totalCommitted > budgetAfterFees;
-  const overSlots = bidCount + matchCount > freeSlots;
+  const overSlots = bidCount > freeSlots;
 
-  const saveRound = (entries) => {
+  const saveRound = (roundEntries) => {
     const nextBids = { ...bids };
-    const nextLimits = { ...matchLimits };
-    for (const { player, owner } of entries) {
-      const target = owner === myTeam ? nextLimits : nextBids;
-      if (draft[player] != null) target[player] = draft[player];
-      else delete target[player];
+    for (const { player, owner } of roundEntries) {
+      if (owner === myTeam) continue;
+      if (draft[player] != null) nextBids[player] = draft[player];
+      else delete nextBids[player];
     }
-    // persist both maps in one row; saveBids writes bids with current limits, so chain
-    void saveBids(nextBids).then(() => saveMatchLimits(nextLimits));
+    void saveBids(nextBids);
   };
 
   return (
@@ -170,40 +158,40 @@ export function RFABidding({ myTeam, budgetAfterFees, freeSlots, bids, matchLimi
         </div>
         <div className="summary-item">
           <span className={`summary-value ${overBudget ? "red" : "green"}`}>${totalCommitted}</span>
-          <span className="summary-label">Committed If All Bids/Matches Hit</span>
+          <span className="summary-label">Committed If All Bids Win</span>
         </div>
         <div className="summary-item">
-          <span className={`summary-value ${overSlots ? "red" : "cyan"}`}>{bidCount + matchCount} / {freeSlots}</span>
-          <span className="summary-label">Bids+Matches vs Open Slots</span>
+          <span className={`summary-value ${overSlots ? "red" : "cyan"}`}>{bidCount} / {freeSlots}</span>
+          <span className="summary-label">Bids vs Open Slots</span>
         </div>
         {saveStatus === "saved" && <div className="save-flash">Saved!</div>}
         {saveStatus === "error" && <div className="save-flash" style={{ color: "#ff4444" }}>Save failed!</div>}
       </div>
       {overBudget && (
         <p className="bid-warning">
-          Warning: if every bid wins and every match triggers, you&apos;d spend ${totalCommitted} of your ${budgetAfterFees} budget.
+          Warning: if every bid wins, you&apos;d spend ${totalCommitted} of your ${budgetAfterFees} budget.
         </p>
       )}
       {overSlots && (
         <p className="bid-warning">
-          Warning: you have {freeSlots} open roster slot{freeSlots !== 1 ? "s" : ""} but {bidCount + matchCount} bids/matches entered — you can&apos;t roster them all.
+          Warning: you have {freeSlots} open roster slot{freeSlots !== 1 ? "s" : ""} but {bidCount} bids entered — you can&apos;t roster them all.
         </p>
       )}
 
-      {rounds.map((entries, i) => (
+      {rounds.map((roundEntries, i) => (
         <RoundSection
           key={i}
           roundNum={i + 1}
-          entries={entries}
+          entries={roundEntries}
           myTeam={myTeam}
           draft={draft}
           setDraft={setDraft}
-          saved={{ ...bids, ...matchLimits }}
-          onSave={() => saveRound(entries)}
+          saved={bids}
+          onSave={() => saveRound(roundEntries)}
         />
       ))}
 
-      <EmailBids teamName={myTeam} rounds={rounds} myTeam={myTeam} bids={bids} matchLimits={matchLimits} />
+      <EmailBids teamName={myTeam} rounds={rounds} myTeam={myTeam} bids={bids} />
     </div>
   );
 }

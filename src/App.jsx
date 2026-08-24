@@ -634,16 +634,14 @@ function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimed
       <div className="other-teams-section">
         <h2 className="other-teams-heading">RFA Bidding</h2>
         <p className="other-teams-description">
-          The official 2026 RFAs, grouped by bidding round. Enter your sealed bids and match limits, then email them to the commissioner.
+          The official 2026 RFAs, grouped by bidding round. Enter your sealed bids, then email them to the commissioner.
         </p>
         <RFABidding
           myTeam={myTeam}
           budgetAfterFees={myBudgetInfo.budgetAfterFees}
           freeSlots={myBudgetInfo.freeSlots}
           bids={bidState.bids}
-          matchLimits={bidState.matchLimits}
           saveBids={bidState.saveBids}
-          saveMatchLimits={bidState.saveMatchLimits}
           saveStatus={bidState.saveStatus}
         />
       </div>

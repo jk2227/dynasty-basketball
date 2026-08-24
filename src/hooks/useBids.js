@@ -2,11 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../lib/supabase.js";
 
 // Sealed RFA bids: one row per user holding
-//   bids:        { [playerName]: dollarAmount }   (bids on other teams' RFAs)
-//   matchLimits: { [playerName]: dollarAmount }   (max price you'd match on your own RFAs)
+//   bids: { [playerName]: dollarAmount }   (bids on other teams' RFAs)
 export function useBids(user, myTeam) {
   const [bids, setBids] = useState({});
-  const [matchLimits, setMatchLimits] = useState({});
   const [loading, setLoading] = useState(true);
   const [saveStatus, setSaveStatus] = useState(null);
 
@@ -26,7 +24,6 @@ export function useBids(user, myTeam) {
     }
     if (data) {
       setBids(data.bids || {});
-      setMatchLimits(data.match_limits || {});
     }
     setLoading(false);
   }, [user]);
@@ -40,13 +37,13 @@ export function useBids(user, myTeam) {
     setTimeout(() => setSaveStatus(null), status === "saved" ? 2000 : 3000);
   };
 
-  const persist = async (nextBids, nextMatchLimits) => {
+  const saveBids = async (next) => {
+    setBids(next);
     const { error } = await supabase.from("rfa_bids").upsert(
       {
         user_id: user.id,
         team_name: myTeam,
-        bids: nextBids,
-        match_limits: nextMatchLimits,
+        bids: next,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "user_id" }
@@ -60,15 +57,5 @@ export function useBids(user, myTeam) {
     return error;
   };
 
-  const saveBids = async (next) => {
-    setBids(next);
-    return persist(next, matchLimits);
-  };
-
-  const saveMatchLimits = async (next) => {
-    setMatchLimits(next);
-    return persist(bids, next);
-  };
-
-  return { bids, matchLimits, saveBids, saveMatchLimits, loading, saveStatus };
+  return { bids, saveBids, loading, saveStatus };
 }
