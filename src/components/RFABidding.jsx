@@ -46,6 +46,15 @@ function BidRow({ player, owner, isMine, value, onChange }) {
   );
 }
 
+function roundMailto(teamName, entries, roundNum, bids) {
+  const bidLines = entries
+    .filter(({ player, owner }) => owner !== teamName && bids[player] != null)
+    .map(({ player, owner }) => `  ${player} (${owner}): $${bids[player]}`);
+  const title = `${teamName} — 2026 RFA Bids — Round ${roundNum}`;
+  const body = `${title}\n\nROUND ${roundNum} BIDS:\n${bidLines.length ? bidLines.join("\n") : "  (no bids)"}\n`;
+  return `mailto:championsleaguecommissioner@gmail.com?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+}
+
 function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSave }) {
   const biddable = entries.filter(({ owner }) => owner !== myTeam);
   const changed = biddable.some(({ player }) => (draft[player] ?? null) !== (saved[player] ?? null));
@@ -86,39 +95,22 @@ function RoundSection({ roundNum, entries, myTeam, draft, setDraft, saved, onSav
           />
         ))}
       </div>
-      <button className="sel-save-btn" disabled={!changed} onClick={onSave}>
-        Save Round {roundNum} Bids
-      </button>
-    </div>
-  );
-}
-
-function EmailBids({ teamName, rounds, myTeam, bids }) {
-  const roundMailto = (entries, roundNum) => {
-    const bidLines = entries
-      .filter(({ player, owner }) => owner !== myTeam && bids[player] != null)
-      .map(({ player, owner }) => `  ${player} (${owner}): $${bids[player]}`);
-    const title = `${teamName} — 2026 RFA Bids — Round ${roundNum}`;
-    const body = `${title}\n\nROUND ${roundNum} BIDS:\n${bidLines.length ? bidLines.join("\n") : "  (no bids)"}\n`;
-    return `mailto:championsleaguecommissioner@gmail.com?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
-  };
-
-  return (
-    <div className="sel-section submit-section">
-      <div className="sel-section-header">
-        <div className="section-dot dot-blue" />
-        <span className="sel-section-title">Submit Bids to Commissioner</span>
+      <div className="sel-btn-row">
+        <button className="sel-save-btn" disabled={!changed} onClick={onSave}>
+          Save Round {roundNum} Bids
+        </button>
+        <a
+          href={roundMailto(myTeam, entries, roundNum, saved)}
+          className="sel-save-btn submit-btn"
+        >
+          Email Round {roundNum} Bids
+        </a>
       </div>
-      <p className="sel-description">
-        Email your saved bids to the commissioner one round at a time.
-      </p>
-      <div className="submit-btn-row">
-        {rounds.map((entries, i) => (
-          <a key={i} href={roundMailto(entries, i + 1)} className="sel-save-btn submit-btn">
-            Email Round {i + 1} Bids
-          </a>
-        ))}
-      </div>
+      {changed && (
+        <p className="sel-description bid-unsaved-note">
+          You have unsaved changes — save before emailing so the email includes them.
+        </p>
+      )}
     </div>
   );
 }
@@ -191,8 +183,6 @@ export function RFABidding({ myTeam, budgetAfterFees, freeSlots, bids, saveBids,
           onSave={() => saveRound(roundEntries)}
         />
       ))}
-
-      <EmailBids teamName={myTeam} rounds={rounds} myTeam={myTeam} bids={bids} />
     </div>
   );
 }
