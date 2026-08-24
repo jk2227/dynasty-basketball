@@ -108,8 +108,9 @@ function PlayerRow({ player }) {
   );
 }
 
-function TeamSectionTable({ players, extraColumn }) {
-  const [sortCol, setSortCol] = useState("pts");
+function TeamSectionTable({ players, extraColumn, defaultSortCol = "pts" }) {
+  // defaultSortCol: null keeps the given player order until a column is clicked
+  const [sortCol, setSortCol] = useState(defaultSortCol);
   const [sortDir, setSortDir] = useState("desc");
 
   const handleSort = (col) => {
@@ -122,6 +123,7 @@ function TeamSectionTable({ players, extraColumn }) {
   };
 
   const sorted = useMemo(() => {
+    if (!sortCol) return players;
     return [...players].sort((a, b) => {
       if (sortCol === "name") {
         return sortDir === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
@@ -185,7 +187,11 @@ function TeamView({ teamName }) {
   const keeperSet = new Set(keepers2026[teamName] || []);
   const rfaSet = new Set(rfas2026[teamName] || []);
   const keepers = players.filter((p) => keeperSet.has(p.name));
-  const rfas = players.filter((p) => rfaSet.has(p.name));
+  // rfas2026 arrays are stored in the league sheet's bidding round order (Group 1, 2, 3)
+  const rfaOrder = rfas2026[teamName] || [];
+  const rfas = players
+    .filter((p) => rfaSet.has(p.name))
+    .sort((a, b) => rfaOrder.indexOf(a.name) - rfaOrder.indexOf(b.name));
   const rookies = players.filter((p) => p.onRookieDeal && !keeperSet.has(p.name) && !rfaSet.has(p.name));
   // RFAs don't count against the roster limit - only keepers + rookie contracts do
   const freeSpace = ROSTER_SIZE - keepers.length - rookies.length;
@@ -255,9 +261,9 @@ function TeamView({ teamName }) {
             <span className="section-title">2026 RFAs (don't count toward roster space)</span>
             <span className="section-count">{rfas.length}</span>
           </div>
-          <TeamSectionTable players={rfas} extraColumn={(p) => (
+          <TeamSectionTable players={rfas} defaultSortCol={null} extraColumn={(p) => (
             <>
-              <span className="badge badge-red">RFA - bidding pending</span>
+              <span className="badge badge-red">Round {rfaOrder.indexOf(p.name) + 1} RFA - bidding pending</span>
               {p.birdRights && <span className="badge badge-orange" style={{marginLeft: 4}}>Bird {p.birdRights.discount}%</span>}
               {p.consecutiveKeeperYears > 0 && <span className="badge badge-gray" style={{marginLeft: 4}}>Kept {p.consecutiveKeeperYears}x</span>}
             </>
