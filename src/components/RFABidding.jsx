@@ -146,15 +146,18 @@ function RoundSection({ roundNum, entries, myTeam, teamCash, draft, setDraft, sa
           Save Round {roundNum} Bids
         </button>
         <a
-          href={roundMailto(myTeam, entries, roundNum, saved)}
+          href={roundMailto(myTeam, entries, roundNum, draft)}
           className="sel-save-btn submit-btn"
+          onClick={() => {
+            if (changed) onSave();
+          }}
         >
           Email Round {roundNum} Bids
         </a>
       </div>
       {changed && (
         <p className="sel-description bid-unsaved-note">
-          You have unsaved changes — save before emailing so the email includes them.
+          Unsaved changes — emailing will save them for you.
         </p>
       )}
     </div>
