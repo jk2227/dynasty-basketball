@@ -50,17 +50,18 @@ export const rfas2026 = {
 
 // Auction budgets for the 2026 offseason (before rookie fees).
 // Updated after RFA Round 1: winning bids and match prices already deducted.
+// Fractional match prices round the budget DOWN (e.g. 263.4 -> 263).
 export const teamBudgets = {
   "Boston Jellyfam": 302,
   "Frequency Vibes": 105,
   "Nuclear Guam": 221,
-  "Richmond Rogues": 274.1,
+  "Richmond Rogues": 274,
   "Scranton Stranglers": 65,
   "Team Droptop": 280,
-  "Samsung Synchro": 263.4,
+  "Samsung Synchro": 263,
   "Tompkins CAT": 256,
   "Tysons Traffic": 127,
-  "Wolf Wall": 249.3,
+  "Wolf Wall": 249,
 };
 
 // 2026 RFA results by bidding round. A player listed here is settled:
