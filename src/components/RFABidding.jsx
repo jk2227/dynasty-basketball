@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { rfas2026, playerStats, rookieContracts, teamBudgets } from "../data.js";
+import { rfas2026, playerStats, rookieContracts, teamBudgets, rfaResults2026 } from "../data.js";
 import { computeTeamEligibility, getTeamNames } from "../eligibility.js";
 
 const ROUND_COUNT = 3;
@@ -55,26 +55,34 @@ function TeamCashPanel({ teamCash, myTeam }) {
   );
 }
 
-function BidRow({ player, owner, ownerCash, isMine, value, onChange }) {
+function BidRow({ player, owner, ownerCash, isMine, result, value, onChange }) {
   const stats = playerStats[player];
   return (
     <div className="sel-player sel-player-readonly bid-row">
       <span className="sel-player-name">{player}</span>
       <span className="bid-owner">
         {isMine ? "your RFA" : owner}
-        {!isMine && ownerCash && (
+        {!isMine && !result && ownerCash && (
           <span className="bid-owner-cash"> · ${ownerCash.budget} / ${ownerCash.afterFees} after fees</span>
         )}
       </span>
-      {isMine && (
-        <span className="badge badge-orange">you match at {matchDiscount(player)}%</span>
+      {result ? (
+        <span className={`badge ${result.matched ? "badge-green" : "badge-orange"}`}>
+          {result.matched
+            ? `${owner} matched $${result.winningBid} bid - $${result.price}`
+            : `won by ${result.bidder} - $${result.price}`}
+        </span>
+      ) : (
+        isMine && (
+          <span className="badge badge-orange">you match at {matchDiscount(player)}%</span>
+        )
       )}
       {stats && stats.pts != null && (
         <span className="sel-player-stats">
           {stats.pts} pts / {stats.reb} reb / {stats.ast} ast
         </span>
       )}
-      {!isMine && (
+      {!isMine && !result && (
         <span className="bid-input-wrap">
           <span className="bid-label">bid $</span>
           <input
@@ -101,7 +109,9 @@ function roundMailto(teamName, entries, roundNum, bids) {
 }
 
 function RoundSection({ roundNum, entries, myTeam, teamCash, draft, setDraft, saved, onSave }) {
-  const biddable = entries.filter(({ owner }) => owner !== myTeam);
+  const results = rfaResults2026[roundNum] || {};
+  const settled = entries.length > 0 && entries.every(({ player }) => results[player]);
+  const biddable = entries.filter(({ owner, player }) => owner !== myTeam && !results[player]);
   const changed = biddable.some(({ player }) => (draft[player] ?? null) !== (saved[player] ?? null));
 
   const handleChange = (player, raw) => {
@@ -117,16 +127,24 @@ function RoundSection({ roundNum, entries, myTeam, teamCash, draft, setDraft, sa
   return (
     <div className="sel-section">
       <div className="sel-section-header">
-        <div className="section-dot dot-red" />
+        <div className={`section-dot ${settled ? "dot-green" : "dot-red"}`} />
         <span className="sel-section-title">RFA Round {roundNum}</span>
         <span className="sel-count">
-          {biddable.filter(({ player }) => draft[player] != null).length} bids
+          {settled
+            ? "settled"
+            : `${biddable.filter(({ player }) => draft[player] != null).length} bids`}
         </span>
       </div>
       <p className="sel-description">
-        Enter sealed bids on other teams&apos; round {roundNum} RFAs. Leave blank to pass.
-        Bids are private to you until emailed. You can&apos;t bid on your own RFA — you match
-        the winning bid instead.
+        {settled ? (
+          <>Round {roundNum} is complete — results below.</>
+        ) : (
+          <>
+            Enter sealed bids on other teams&apos; round {roundNum} RFAs. Leave blank to pass.
+            Bids are private to you until emailed. You can&apos;t bid on your own RFA — you match
+            the winning bid instead.
+          </>
+        )}
       </p>
       <div className="sel-player-list">
         {entries.map(({ player, owner }) => (
@@ -136,29 +154,34 @@ function RoundSection({ roundNum, entries, myTeam, teamCash, draft, setDraft, sa
             owner={owner}
             ownerCash={teamCash[owner]}
             isMine={owner === myTeam}
+            result={results[player]}
             value={draft[player]}
             onChange={handleChange}
           />
         ))}
       </div>
-      <div className="sel-btn-row">
-        <button className="sel-save-btn" disabled={!changed} onClick={onSave}>
-          Save Round {roundNum} Bids
-        </button>
-        <a
-          href={roundMailto(myTeam, entries, roundNum, draft)}
-          className="sel-save-btn submit-btn"
-          onClick={() => {
-            if (changed) onSave();
-          }}
-        >
-          Email Round {roundNum} Bids
-        </a>
-      </div>
-      {changed && (
-        <p className="sel-description bid-unsaved-note">
-          Unsaved changes — emailing will save them for you.
-        </p>
+      {!settled && (
+        <>
+          <div className="sel-btn-row">
+            <button className="sel-save-btn" disabled={!changed} onClick={onSave}>
+              Save Round {roundNum} Bids
+            </button>
+            <a
+              href={roundMailto(myTeam, entries, roundNum, draft)}
+              className="sel-save-btn submit-btn"
+              onClick={() => {
+                if (changed) onSave();
+              }}
+            >
+              Email Round {roundNum} Bids
+            </a>
+          </div>
+          {changed && (
+            <p className="sel-description bid-unsaved-note">
+              Unsaved changes — emailing will save them for you.
+            </p>
+          )}
+        </>
       )}
     </div>
   );
@@ -176,7 +199,13 @@ export function RFABidding({ myTeam, budgetAfterFees, freeSlots, bids, saveBids,
 
   const myPlayers = useMemo(() => new Set(rfas2026[myTeam] || []), [myTeam]);
 
-  const entries = Object.entries(draft).filter(([p]) => !myPlayers.has(p));
+  // Players whose RFA round is already settled — old bids on them no longer commit money
+  const settledPlayers = useMemo(
+    () => Object.assign({}, ...Object.values(rfaResults2026)),
+    []
+  );
+
+  const entries = Object.entries(draft).filter(([p]) => !myPlayers.has(p) && !settledPlayers[p]);
   const totalCommitted = entries.reduce((sum, [, amt]) => sum + amt, 0);
   const bidCount = entries.length;
   const overBudget = totalCommitted > budgetAfterFees;

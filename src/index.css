@@ -250,6 +250,7 @@ body {
 }
 
 .dot-green { background: var(--accent-green); }
+.dot-orange { background: var(--accent-orange); }
 .dot-cyan { background: var(--accent-cyan); }
 .dot-red { background: var(--accent-red); }
 

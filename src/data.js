@@ -1,21 +1,23 @@
 // League roster limit. RFAs do not count against it - only keepers + rookie contracts do.
 export const ROSTER_SIZE = 15;
 
-// Current Offseason Rosters (2026 offseason, after official keeper/RFA selections).
-// Each roster = 2026 keepers + 2026 RFAs (bidding pending) + players still on rookie contracts.
+// Current Offseason Rosters (2026 offseason, after official keeper/RFA selections
+// and RFA Round 1 results — see rfaResults2026).
+// Each roster = 2026 keepers + 2026 RFAs (bidding pending or matched) + RFA signings
+// + players still on rookie contracts.
 // Everyone else was released to the free agent pool.
 // Note: De'Aaron Fox is listed as a Frequency Vibes keeper in the league sheet (previously on Scranton).
 export const currentRosters = {
-  "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "LaMelo Ball", "Jalen Williams", "Julius Randle"],
-  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Tyrese Haliburton", "Kristaps Porzingis", "Jalen Suggs", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
-  "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis"],
-  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Joel Embiid", "Ryan Rollins", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg"],
-  "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings"],
+  "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle"],
+  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Kristaps Porzingis", "Jalen Suggs", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
+  "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis"],
+  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Ryan Rollins", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton"],
+  "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings", "LaMelo Ball"],
   "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "LeBron James", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament"],
-  "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Giannis Antetokounmpo", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara"],
+  "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara"],
   "Wolf Wall": ["Stephen Curry", "Bam Adebayo", "Pascal Siakam", "Deni Avdija", "Desmond Bane", "Payton Pritchard", "Jaden McDaniels", "Thomas Sorber", "Darryn Peterson", "Yanic Konan Niederhauser"],
-  "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Alperen Sengun", "Walker Kessler", "Paolo Banchero", "Rudy Gobert", "Norman Powell", "Brandon Miller", "Ace Bailey", "Maxime Raynaud", "Cameron Boozer", "Khaman Maluach"],
-  "Frequency Vibes": ["Kyrie Irving", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Domantas Sabonis", "Keegan Murray", "Jalen Duren", "Jaime Jaquez Jr.", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain"],
+  "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Alperen Sengun", "Walker Kessler", "Paolo Banchero", "Rudy Gobert", "Norman Powell", "Brandon Miller", "Ace Bailey", "Maxime Raynaud", "Cameron Boozer", "Khaman Maluach", "Joel Embiid"],
+  "Frequency Vibes": ["Kyrie Irving", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Keegan Murray", "Jalen Duren", "Jaime Jaquez Jr.", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain", "Giannis Antetokounmpo"],
 };
 
 // 2026 Keepers (official selections, going into 2026-2027 season)
@@ -46,18 +48,38 @@ export const rfas2026 = {
   "Wolf Wall": ["Desmond Bane", "Payton Pritchard", "Jaden McDaniels"],
 };
 
-// Auction budgets for the 2026 offseason (before rookie fees)
+// Auction budgets for the 2026 offseason (before rookie fees).
+// Updated after RFA Round 1: winning bids and match prices already deducted.
 export const teamBudgets = {
   "Boston Jellyfam": 302,
-  "Frequency Vibes": 309,
-  "Nuclear Guam": 306,
-  "Richmond Rogues": 329,
-  "Scranton Stranglers": 355,
+  "Frequency Vibes": 105,
+  "Nuclear Guam": 221,
+  "Richmond Rogues": 274.1,
+  "Scranton Stranglers": 65,
   "Team Droptop": 280,
-  "Samsung Synchro": 345,
+  "Samsung Synchro": 263.4,
   "Tompkins CAT": 256,
-  "Tysons Traffic": 239,
-  "Wolf Wall": 306,
+  "Tysons Traffic": 127,
+  "Wolf Wall": 249.3,
+};
+
+// 2026 RFA results by bidding round. A player listed here is settled:
+// matched=true means the owner matched the winning bid (player stays, owner pays `price`,
+// 90% of the bid, or 85% coming off a rookie deal); matched=false means `bidder` signed
+// the player away for `price`. Rounds not listed are still pending.
+export const rfaResults2026 = {
+  1: {
+    "Franz Wagner": { winningBid: 60, bidder: "Nuclear Guam", matched: true, price: 54 },
+    "Giannis Antetokounmpo": { winningBid: 204, bidder: "Frequency Vibes", matched: false, price: 204 },
+    "Desmond Bane": { winningBid: 63, bidder: "Team Droptop", matched: true, price: 56.7 },
+    "Paolo Banchero": { winningBid: 36, bidder: "Richmond Rogues", matched: true, price: 30.6 },
+    "Domantas Sabonis": { winningBid: 58, bidder: "Tysons Traffic", matched: false, price: 58 },
+    "LaMelo Ball": { winningBid: 80, bidder: "Nuclear Guam", matched: false, price: 80 },
+    "Darius Garland": { winningBid: 61, bidder: "Boston Jellyfam", matched: true, price: 54.9 },
+    "Tyrese Haliburton": { winningBid: 290, bidder: "Scranton Stranglers", matched: false, price: 290 },
+    "Mark Williams": { winningBid: 5, bidder: "Samsung Synchro", matched: true, price: 5 },
+    "Joel Embiid": { winningBid: 51, bidder: "Samsung Synchro", matched: false, price: 51 },
+  },
 };
 
 // 2025 Keepers (going into 2025-2026 season)
