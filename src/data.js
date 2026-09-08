@@ -60,7 +60,7 @@ export const teamBudgets = {
   "Scranton Stranglers": 65,
   "Team Droptop": 168,
   "Samsung Synchro": 263,
-  "Tompkins CAT": 256,
+  "Tompkins CAT": 248,
   "Tysons Traffic": 127,
   "Wolf Wall": 213,
 };
@@ -83,13 +83,14 @@ export const rfaResults2026 = {
     "Joel Embiid": { winningBid: 51, bidder: "Samsung Synchro", matched: false, price: 51 },
   },
   // Round 2 partial results: only the settled decisions are listed. Okongwu,
-  // Gobert, Keegan Murray, LeBron James, and Porzingis are still pending.
+  // Gobert, Keegan Murray, and LeBron James are still pending.
   2: {
     "Zion Williamson": { winningBid: 15, bidder: "Nuclear Guam", matched: true, price: 13.5 },
     "Payton Pritchard": { winningBid: 40, bidder: "Tompkins CAT", matched: true, price: 36 },
     "Jamal Murray": { winningBid: 131, bidder: "Team Droptop", matched: true, price: 117.9 },
     "Jalen Williams": { winningBid: 131, bidder: "Samsung Synchro", matched: true, price: 111.35 },
     "Ryan Rollins": { winningBid: 31, bidder: "Boston Jellyfam", matched: false, price: 31 },
+    "Kristaps Porzingis": { winningBid: 8, bidder: "Samsung Synchro", matched: true, price: 7.2 },
   },
 };
 
