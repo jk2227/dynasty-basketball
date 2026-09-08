@@ -194,17 +194,17 @@ function TeamView({ teamName }) {
   const keepers = players.filter((p) => keeperSet.has(p.name));
   // rfas2026 arrays are stored in the league sheet's bidding round order (Group 1, 2, 3)
   const rfaOrder = rfas2026[teamName] || [];
+  // Pending own RFAs only - settled ones move to the RFA Signings section
   const rfas = players
-    .filter((p) => rfaSet.has(p.name))
+    .filter((p) => rfaSet.has(p.name) && !rfaResults[p.name])
     .sort((a, b) => rfaOrder.indexOf(a.name) - rfaOrder.indexOf(b.name));
-  // Players signed away from another team via a winning RFA bid
-  const rfaSignings = players.filter((p) => rfaResults[p.name] && !rfaSet.has(p.name));
+  // Settled RFAs on this roster: won from other teams, or own RFAs kept via match
+  const rfaSignings = players.filter((p) => rfaResults[p.name]);
   const rookies = players.filter(
     (p) => p.onRookieDeal && !keeperSet.has(p.name) && !rfaSet.has(p.name) && !rfaResults[p.name]
   );
   // Pending RFAs don't count against the roster limit; settled ones (matched or signed) do
-  const settledOwnRfas = rfas.filter((p) => rfaResults[p.name]);
-  const freeSpace = ROSTER_SIZE - keepers.length - rookies.length - rfaSignings.length - settledOwnRfas.length;
+  const freeSpace = ROSTER_SIZE - keepers.length - rookies.length - rfaSignings.length;
 
   const budget = teamBudgets[teamName];
   const rookieFees = rookies.reduce((sum, p) => sum + p.rookieStatus.salary, 0);
@@ -271,22 +271,13 @@ function TeamView({ teamName }) {
             <span className="section-title">2026 RFAs (don't count toward roster space)</span>
             <span className="section-count">{rfas.length}</span>
           </div>
-          <TeamSectionTable players={rfas} defaultSortCol={null} extraColumn={(p) => {
-            const result = rfaResults[p.name];
-            return (
-              <>
-                {result ? (
-                  <span className="badge badge-green">
-                    Round {rfaOrder.indexOf(p.name) + 1} RFA - matched ${result.winningBid} bid - ${result.price}
-                  </span>
-                ) : (
-                  <span className="badge badge-red">Round {rfaOrder.indexOf(p.name) + 1} RFA - bidding pending</span>
-                )}
-                {p.birdRights && <span className="badge badge-orange" style={{marginLeft: 4}}>Bird {p.birdRights.discount}%</span>}
-                {p.consecutiveKeeperYears > 0 && <span className="badge badge-gray" style={{marginLeft: 4}}>Kept {p.consecutiveKeeperYears}x</span>}
-              </>
-            );
-          }} />
+          <TeamSectionTable players={rfas} defaultSortCol={null} extraColumn={(p) => (
+            <>
+              <span className="badge badge-red">Round {rfaOrder.indexOf(p.name) + 1} RFA - bidding pending</span>
+              {p.birdRights && <span className="badge badge-orange" style={{marginLeft: 4}}>Bird {p.birdRights.discount}%</span>}
+              {p.consecutiveKeeperYears > 0 && <span className="badge badge-gray" style={{marginLeft: 4}}>Kept {p.consecutiveKeeperYears}x</span>}
+            </>
+          )} />
         </div>
       )}
 
@@ -294,12 +285,17 @@ function TeamView({ teamName }) {
         <div className="section">
           <div className="section-header">
             <div className="section-dot dot-orange" />
-            <span className="section-title">RFA Signings (won from other teams)</span>
+            <span className="section-title">RFA Signings</span>
             <span className="section-count">{rfaSignings.length}</span>
           </div>
-          <TeamSectionTable players={rfaSignings} extraColumn={(p) => (
-            <span className="badge badge-orange">Won via RFA - ${rfaResults[p.name].price}</span>
-          )} />
+          <TeamSectionTable players={rfaSignings} extraColumn={(p) => {
+            const result = rfaResults[p.name];
+            return result.matched ? (
+              <span className="badge badge-green">Matched ${result.winningBid} bid - ${result.price}</span>
+            ) : (
+              <span className="badge badge-orange">Won via RFA - ${result.price}</span>
+            );
+          }} />
         </div>
       )}
 
