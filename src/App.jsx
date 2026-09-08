@@ -241,8 +241,10 @@ function TeamView({ teamName }) {
           <span className="summary-label">Rookie Deals</span>
         </div>
         <div className="summary-item">
-          <span className="summary-value muted">{freeSpace}</span>
-          <span className="summary-label">Free Space (of {ROSTER_SIZE})</span>
+          <span className={`summary-value ${freeSpace < 0 ? "red" : "muted"}`}>{freeSpace}</span>
+          <span className="summary-label">
+            {freeSpace < 0 ? `Over Roster Limit (of ${ROSTER_SIZE})` : `Free Space (of ${ROSTER_SIZE})`}
+          </span>
         </div>
       </div>
 
