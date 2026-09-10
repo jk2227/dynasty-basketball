@@ -8,15 +8,15 @@ export const ROSTER_SIZE = 15;
 // Everyone else was released to the free agent pool.
 // Note: De'Aaron Fox is listed as a Frequency Vibes keeper in the league sheet (previously on Scranton).
 export const currentRosters = {
-  "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle"],
-  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Kristaps Porzingis", "Jalen Suggs", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
-  "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis"],
+  "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle", "Onyeka Okongwu"],
+  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Jalen Suggs", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
+  "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis"],
   "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton"],
   "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings", "LaMelo Ball"],
-  "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "LeBron James", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament"],
+  "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament", "Rudy Gobert"],
   "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara", "Ryan Rollins"],
-  "Wolf Wall": ["Stephen Curry", "Bam Adebayo", "Pascal Siakam", "Deni Avdija", "Desmond Bane", "Payton Pritchard", "Jaden McDaniels", "Thomas Sorber", "Darryn Peterson", "Yanic Konan Niederhauser"],
-  "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Alperen Sengun", "Walker Kessler", "Paolo Banchero", "Rudy Gobert", "Norman Powell", "Brandon Miller", "Ace Bailey", "Maxime Raynaud", "Cameron Boozer", "Khaman Maluach", "Joel Embiid"],
+  "Wolf Wall": ["Stephen Curry", "Bam Adebayo", "Pascal Siakam", "Deni Avdija", "Desmond Bane", "Payton Pritchard", "Jaden McDaniels", "Thomas Sorber", "Darryn Peterson", "Yanic Konan Niederhauser", "LeBron James"],
+  "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Alperen Sengun", "Walker Kessler", "Paolo Banchero", "Norman Powell", "Brandon Miller", "Ace Bailey", "Maxime Raynaud", "Cameron Boozer", "Khaman Maluach", "Joel Embiid", "Kristaps Porzingis"],
   "Frequency Vibes": ["Kyrie Irving", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Keegan Murray", "Jalen Duren", "Jaime Jaquez Jr.", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain", "Giannis Antetokounmpo"],
 };
 
@@ -41,7 +41,7 @@ export const rfas2026 = {
   "Nuclear Guam": ["Mark Williams", "Jamal Murray", "Paul George"],
   "Richmond Rogues": ["Darius Garland", "LeBron James", "Jaylen Brown"],
   "Scranton Stranglers": ["Joel Embiid", "Ryan Rollins", "Immanuel Quickley"],
-  "Team Droptop": ["LaMelo Ball", "Jalen Williams", "Julius Randle"],
+  "Team Droptop": ["LaMelo Ball", "Jalen Williams", "Julius Randle", "Onyeka Okongwu"],
   "Samsung Synchro": ["Paolo Banchero", "Rudy Gobert", "Norman Powell"],
   "Tompkins CAT": ["Tyrese Haliburton", "Kristaps Porzingis", "Jalen Suggs"],
   "Tysons Traffic": ["Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan"],
@@ -49,20 +49,20 @@ export const rfas2026 = {
 };
 
 // Auction budgets for the 2026 offseason (before rookie fees).
-// Updated through RFA Round 1 plus the settled Round 2 decisions:
+// Updated through the final RFA Round 2 results:
 // winning bids and match prices already deducted.
 // Fractional match prices round the budget DOWN (e.g. 263.4 -> 263).
 export const teamBudgets = {
   "Boston Jellyfam": 257,
-  "Frequency Vibes": 105,
+  "Frequency Vibes": 90,
   "Nuclear Guam": 103,
-  "Richmond Rogues": 274,
+  "Richmond Rogues": 235,
   "Scranton Stranglers": 65,
-  "Team Droptop": 168,
-  "Samsung Synchro": 263,
-  "Tompkins CAT": 248,
+  "Team Droptop": 115,
+  "Samsung Synchro": 255,
+  "Tompkins CAT": 256,
   "Tysons Traffic": 127,
-  "Wolf Wall": 213,
+  "Wolf Wall": 148,
 };
 
 // 2026 RFA results by bidding round. A player listed here is settled:
@@ -82,15 +82,19 @@ export const rfaResults2026 = {
     "Mark Williams": { winningBid: 5, bidder: "Samsung Synchro", matched: true, price: 5 },
     "Joel Embiid": { winningBid: 51, bidder: "Samsung Synchro", matched: false, price: 51 },
   },
-  // Round 2 partial results: only the settled decisions are listed. Okongwu,
-  // Gobert, Keegan Murray, and LeBron James are still pending.
+  // Round 2 final results. Round 3 (Group 3) drew no bids; disposition of those
+  // RFAs is not yet recorded here.
   2: {
     "Zion Williamson": { winningBid: 15, bidder: "Nuclear Guam", matched: true, price: 13.5 },
     "Payton Pritchard": { winningBid: 40, bidder: "Tompkins CAT", matched: true, price: 36 },
     "Jamal Murray": { winningBid: 131, bidder: "Team Droptop", matched: true, price: 117.9 },
     "Jalen Williams": { winningBid: 131, bidder: "Samsung Synchro", matched: true, price: 111.35 },
     "Ryan Rollins": { winningBid: 31, bidder: "Boston Jellyfam", matched: false, price: 31 },
-    "Kristaps Porzingis": { winningBid: 8, bidder: "Samsung Synchro", matched: true, price: 7.2 },
+    "Kristaps Porzingis": { winningBid: 8, bidder: "Samsung Synchro", matched: false, price: 8 },
+    "Onyeka Okongwu": { winningBid: 53, bidder: "Team Droptop", matched: false, price: 53 },
+    "Rudy Gobert": { winningBid: 39, bidder: "Richmond Rogues", matched: false, price: 39 },
+    "LeBron James": { winningBid: 65, bidder: "Wolf Wall", matched: false, price: 65 },
+    "Keegan Murray": { winningBid: 17, bidder: "Boston Jellyfam", matched: true, price: 14.45 },
   },
 };
 
