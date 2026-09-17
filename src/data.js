@@ -9,9 +9,9 @@ export const ROSTER_SIZE = 15;
 // Note: De'Aaron Fox is listed as a Frequency Vibes keeper in the league sheet (previously on Scranton).
 export const currentRosters = {
   "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle", "Onyeka Okongwu"],
-  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Jalen Suggs", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
+  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
   "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis"],
-  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton"],
+  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton", "Jalen Suggs"],
   "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings", "LaMelo Ball"],
   "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament", "Rudy Gobert"],
   "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara", "Ryan Rollins"],
@@ -57,7 +57,7 @@ export const teamBudgets = {
   "Frequency Vibes": 90,
   "Nuclear Guam": 103,
   "Richmond Rogues": 235,
-  "Scranton Stranglers": 65,
+  "Scranton Stranglers": 33,
   "Team Droptop": 115,
   "Samsung Synchro": 255,
   "Tompkins CAT": 256,
@@ -91,6 +91,11 @@ export const rfaResults2026 = {
     "Jalen Williams": { winningBid: 131, bidder: "Samsung Synchro", matched: true, price: 111.35 },
     "Ryan Rollins": { winningBid: 31, bidder: "Boston Jellyfam", matched: false, price: 31 },
     "Kristaps Porzingis": { winningBid: 8, bidder: "Samsung Synchro", matched: false, price: 8 },
+  },
+  // Round 3 partial results: only Suggs is settled; Duren, Jaylen Brown, Morant,
+  // McDaniels, Powell, Randle, Paul George (tie rebid), and Quickley are pending.
+  3: {
+    "Jalen Suggs": { winningBid: 32, bidder: "Scranton Stranglers", matched: false, price: 32 },
     "Onyeka Okongwu": { winningBid: 53, bidder: "Team Droptop", matched: false, price: 53 },
     "Rudy Gobert": { winningBid: 39, bidder: "Richmond Rogues", matched: false, price: 39 },
     "LeBron James": { winningBid: 65, bidder: "Wolf Wall", matched: false, price: 65 },
