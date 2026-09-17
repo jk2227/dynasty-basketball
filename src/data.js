@@ -82,8 +82,7 @@ export const rfaResults2026 = {
     "Mark Williams": { winningBid: 5, bidder: "Samsung Synchro", matched: true, price: 5 },
     "Joel Embiid": { winningBid: 51, bidder: "Samsung Synchro", matched: false, price: 51 },
   },
-  // Round 2 final results. Round 3 (Group 3) drew no bids; disposition of those
-  // RFAs is not yet recorded here.
+  // Round 2 final results.
   2: {
     "Zion Williamson": { winningBid: 15, bidder: "Nuclear Guam", matched: true, price: 13.5 },
     "Payton Pritchard": { winningBid: 40, bidder: "Tompkins CAT", matched: true, price: 36 },
@@ -91,15 +90,15 @@ export const rfaResults2026 = {
     "Jalen Williams": { winningBid: 131, bidder: "Samsung Synchro", matched: true, price: 111.35 },
     "Ryan Rollins": { winningBid: 31, bidder: "Boston Jellyfam", matched: false, price: 31 },
     "Kristaps Porzingis": { winningBid: 8, bidder: "Samsung Synchro", matched: false, price: 8 },
+    "Onyeka Okongwu": { winningBid: 53, bidder: "Team Droptop", matched: false, price: 53 },
+    "Rudy Gobert": { winningBid: 39, bidder: "Richmond Rogues", matched: false, price: 39 },
+    "LeBron James": { winningBid: 65, bidder: "Wolf Wall", matched: false, price: 65 },
+    "Keegan Murray": { winningBid: 17, bidder: "Boston Jellyfam", matched: true, price: 14.45 },
   },
   // Round 3 partial results: only Suggs is settled; Duren, Jaylen Brown, Morant,
   // McDaniels, Powell, Randle, Paul George (tie rebid), and Quickley are pending.
   3: {
     "Jalen Suggs": { winningBid: 32, bidder: "Scranton Stranglers", matched: false, price: 32 },
-    "Onyeka Okongwu": { winningBid: 53, bidder: "Team Droptop", matched: false, price: 53 },
-    "Rudy Gobert": { winningBid: 39, bidder: "Richmond Rogues", matched: false, price: 39 },
-    "LeBron James": { winningBid: 65, bidder: "Wolf Wall", matched: false, price: 65 },
-    "Keegan Murray": { winningBid: 17, bidder: "Boston Jellyfam", matched: true, price: 14.45 },
   },
 };
 
