@@ -53,7 +53,7 @@ export const rfas2026 = {
 // winning bids and match prices already deducted.
 // Fractional match prices round the budget DOWN (e.g. 263.4 -> 263).
 export const teamBudgets = {
-  "Boston Jellyfam": 257,
+  "Boston Jellyfam": 226,
   "Frequency Vibes": 90,
   "Nuclear Guam": 103,
   "Richmond Rogues": 78,
@@ -62,7 +62,7 @@ export const teamBudgets = {
   "Samsung Synchro": 255,
   "Tompkins CAT": 256,
   "Tysons Traffic": 122,
-  "Wolf Wall": 148,
+  "Wolf Wall": 92,
 };
 
 // 2026 RFA results by bidding round. A player listed here is settled:
@@ -96,7 +96,7 @@ export const rfaResults2026 = {
     "Keegan Murray": { winningBid: 17, bidder: "Boston Jellyfam", matched: true, price: 14.45 },
   },
   // Round 3 partial results. DeRozan drew no bids (retained by owner for the $5 fee).
-  // Still pending: Morant, McDaniels, Powell, Paul George.
+  // Still pending: Powell, Paul George.
   3: {
     "Jalen Suggs": { winningBid: 32, bidder: "Scranton Stranglers", matched: false, price: 32 },
     "Jalen Duren": { winningBid: 87, bidder: "Richmond Rogues", matched: false, price: 87 },
@@ -104,6 +104,8 @@ export const rfaResults2026 = {
     "DeMar DeRozan": { winningBid: 5, bidder: "Tysons Traffic", matched: true, price: 5 },
     "Jaylen Brown": { winningBid: 77, bidder: "Team Droptop", matched: true, price: 69.3 },
     "Julius Randle": { winningBid: 53, bidder: "Richmond Rogues", matched: true, price: 47.7 },
+    "Ja Morant": { winningBid: 35, bidder: "Tysons Traffic", matched: true, price: 31.5 },
+    "Jaden McDaniels": { winningBid: 62, bidder: "Boston Jellyfam", matched: true, price: 55.8 },
   },
 };
 
