@@ -57,11 +57,11 @@ export const teamBudgets = {
   "Frequency Vibes": 90,
   "Nuclear Guam": 103,
   "Richmond Rogues": 148,
-  "Scranton Stranglers": 33,
+  "Scranton Stranglers": 19,
   "Team Droptop": 115,
   "Samsung Synchro": 255,
   "Tompkins CAT": 256,
-  "Tysons Traffic": 127,
+  "Tysons Traffic": 122,
   "Wolf Wall": 148,
 };
 
@@ -95,11 +95,13 @@ export const rfaResults2026 = {
     "LeBron James": { winningBid: 65, bidder: "Wolf Wall", matched: false, price: 65 },
     "Keegan Murray": { winningBid: 17, bidder: "Boston Jellyfam", matched: true, price: 14.45 },
   },
-  // Round 3 partial results: only Suggs is settled; Duren, Jaylen Brown, Morant,
-  // McDaniels, Powell, Randle, Paul George (tie rebid), and Quickley are pending.
+  // Round 3 partial results. DeRozan drew no bids (retained by owner for the $5 fee).
+  // Still pending: Jaylen Brown, Morant, McDaniels, Powell, Randle, Paul George.
   3: {
     "Jalen Suggs": { winningBid: 32, bidder: "Scranton Stranglers", matched: false, price: 32 },
     "Jalen Duren": { winningBid: 87, bidder: "Richmond Rogues", matched: false, price: 87 },
+    "Immanuel Quickley": { winningBid: 15, bidder: "Tompkins CAT", matched: true, price: 13.5 },
+    "DeMar DeRozan": { winningBid: 5, bidder: "Tysons Traffic", matched: true, price: 5 },
   },
 };
 
