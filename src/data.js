@@ -11,13 +11,13 @@ export const currentRosters = {
   "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle", "Onyeka Okongwu"],
   "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
   "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis"],
-  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton", "Jalen Suggs", "Christian Anderson Jr."],
+  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton", "Jalen Suggs", "Christian Anderson Jr.", "Nique Clifford"],
   "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings", "LaMelo Ball"],
   "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament", "Rudy Gobert", "Jalen Duren", "Paolo Banchero"],
   "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara", "Ryan Rollins"],
   "Wolf Wall": ["Stephen Curry", "Bam Adebayo", "Pascal Siakam", "Deni Avdija", "Desmond Bane", "Payton Pritchard", "Jaden McDaniels", "Thomas Sorber", "Darryn Peterson", "Yanic Konan Niederhauser", "LeBron James"],
   "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Walker Kessler", "Norman Powell", "Brandon Miller", "Ace Bailey", "Maxime Raynaud", "Cameron Boozer", "Khaman Maluach", "Joel Embiid", "Kristaps Porzingis", "Kyrie Irving"],
-  "Frequency Vibes": ["Alperen Sengun", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Keegan Murray", "Jaime Jaquez Jr.", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain", "Giannis Antetokounmpo"],
+  "Frequency Vibes": ["Alperen Sengun", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Keegan Murray", "Jaime Jaquez Jr.", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Giannis Antetokounmpo"],
 };
 
 // 2026 Keepers (official selections, going into 2026-2027 season)
