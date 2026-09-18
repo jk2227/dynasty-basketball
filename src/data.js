@@ -59,7 +59,7 @@ export const teamBudgets = {
   "Richmond Rogues": 78,
   "Scranton Stranglers": 19,
   "Team Droptop": 67,
-  "Samsung Synchro": 255,
+  "Samsung Synchro": 222,
   "Tompkins CAT": 256,
   "Tysons Traffic": 122,
   "Wolf Wall": 92,
@@ -95,8 +95,7 @@ export const rfaResults2026 = {
     "LeBron James": { winningBid: 65, bidder: "Wolf Wall", matched: false, price: 65 },
     "Keegan Murray": { winningBid: 17, bidder: "Boston Jellyfam", matched: true, price: 14.45 },
   },
-  // Round 3 partial results. DeRozan drew no bids (retained by owner for the $5 fee).
-  // Still pending: Powell.
+  // Round 3 final results. DeRozan drew no bids (retained by owner for the $5 fee).
   3: {
     "Jalen Suggs": { winningBid: 32, bidder: "Scranton Stranglers", matched: false, price: 32 },
     "Jalen Duren": { winningBid: 87, bidder: "Richmond Rogues", matched: false, price: 87 },
@@ -107,6 +106,7 @@ export const rfaResults2026 = {
     "Ja Morant": { winningBid: 35, bidder: "Tysons Traffic", matched: true, price: 31.5 },
     "Jaden McDaniels": { winningBid: 62, bidder: "Boston Jellyfam", matched: true, price: 55.8 },
     "Paul George": { winningBid: 42, bidder: "Tompkins CAT", matched: true, price: 37.8 },
+    "Norman Powell": { winningBid: 36, bidder: "Boston Jellyfam", matched: true, price: 32.4 },
   },
 };
 
