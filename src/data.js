@@ -55,7 +55,7 @@ export const rfas2026 = {
 export const teamBudgets = {
   "Boston Jellyfam": 226,
   "Frequency Vibes": 90,
-  "Nuclear Guam": 103,
+  "Nuclear Guam": 65,
   "Richmond Rogues": 78,
   "Scranton Stranglers": 19,
   "Team Droptop": 67,
@@ -96,7 +96,7 @@ export const rfaResults2026 = {
     "Keegan Murray": { winningBid: 17, bidder: "Boston Jellyfam", matched: true, price: 14.45 },
   },
   // Round 3 partial results. DeRozan drew no bids (retained by owner for the $5 fee).
-  // Still pending: Powell, Paul George.
+  // Still pending: Powell.
   3: {
     "Jalen Suggs": { winningBid: 32, bidder: "Scranton Stranglers", matched: false, price: 32 },
     "Jalen Duren": { winningBid: 87, bidder: "Richmond Rogues", matched: false, price: 87 },
@@ -106,6 +106,7 @@ export const rfaResults2026 = {
     "Julius Randle": { winningBid: 53, bidder: "Richmond Rogues", matched: true, price: 47.7 },
     "Ja Morant": { winningBid: 35, bidder: "Tysons Traffic", matched: true, price: 31.5 },
     "Jaden McDaniels": { winningBid: 62, bidder: "Boston Jellyfam", matched: true, price: 55.8 },
+    "Paul George": { winningBid: 42, bidder: "Tompkins CAT", matched: true, price: 37.8 },
   },
 };
 
