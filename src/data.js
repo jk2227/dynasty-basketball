@@ -11,7 +11,7 @@ export const currentRosters = {
   "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle", "Onyeka Okongwu"],
   "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
   "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis"],
-  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton", "Jalen Suggs"],
+  "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton", "Jalen Suggs", "Christian Anderson Jr."],
   "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings", "LaMelo Ball"],
   "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament", "Rudy Gobert", "Jalen Duren"],
   "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara", "Ryan Rollins"],
@@ -400,6 +400,7 @@ export const rookieDrafts = {
     { pick: 17, player: "Dailyn Swain", team: "Frequency Vibes" },
     { pick: 18, player: "Kasparas Jakucionis", team: "Tysons Traffic" },
     { pick: 19, player: "Joan Beringer", team: "Tompkins CAT" },
+    { pick: 20, player: "Christian Anderson Jr.", team: "Scranton Stranglers" },
   ],
 };
 
@@ -492,6 +493,7 @@ export const rookieContracts = {
   "Dailyn Swain": 2030,
   "Kasparas Jakucionis": 2030,
   "Joan Beringer": 2030,
+  "Christian Anderson Jr.": 2030,
 };
 
 // Soon-to-be sophomores: 2025 NBA Draft class rookies NOT on a fantasy rookie contract
