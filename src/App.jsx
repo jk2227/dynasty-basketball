@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { computeTeamEligibility, getFreeAgents, getEligibleForRookieDraft, getTeamNames } from "./eligibility.js";
 import { playerStats, teamBudgets, keepers2026, rfas2026, rfaResults2026, ROSTER_SIZE } from "./data.js";
 import { espnPlayerIds } from "./playerIds.js";
+import { playerPositions } from "./playerPositions.js";
 import { useAuth } from "./hooks/useAuth.js";
 import { useTeamClaim } from "./hooks/useTeamClaim.js";
 import { useSelections } from "./hooks/useSelections.js";
@@ -162,7 +163,7 @@ function TeamSectionTable({ players, extraColumn, defaultSortCol = "pts" }) {
                 <div className="player-cell">
                   <PlayerPhoto name={p.name} />
                   <div>
-                    <div>{p.name}</div>
+                    <div>{p.name} {playerPositions[p.name] && <span className="player-pos">{playerPositions[p.name]}</span>}</div>
                     {p.acquisitionMethod && <div className="player-row-meta">{p.acquisitionMethod}</div>}
                   </div>
                 </div>
@@ -405,7 +406,7 @@ function SortableTable({ players, nameKey = "name" }) {
               <td className="col-name">
                 <div className="player-cell">
                   <PlayerPhoto name={name} />
-                  <span>{name}</span>
+                  <span>{name} {playerPositions[name] && <span className="player-pos">{playerPositions[name]}</span>}</span>
                 </div>
               </td>
               {STAT_COLUMNS.map((col) => (

@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
+import { playerPositions } from "../playerPositions.js";
 import { computeTeamEligibility, getFreeAgents, getEligibleForRookieDraft } from "../eligibility.js";
 import { playerStats } from "../data.js";
-/* eslint-disable react/prop-types */
 
 function PlayerCheckbox({ name, checked, onChange, disabled }) {
   const stats = playerStats[name];
@@ -13,7 +13,7 @@ function PlayerCheckbox({ name, checked, onChange, disabled }) {
         onChange={() => onChange(name)}
         disabled={disabled && !checked}
       />
-      <span className="sel-player-name">{name}</span>
+      <span className="sel-player-name">{name} {playerPositions[name] && <span className="player-pos">{playerPositions[name]}</span>}</span>
       {stats && (
         <span className="sel-player-stats">
           {stats.pts} pts / {stats.reb} reb / {stats.ast} ast
@@ -246,7 +246,7 @@ function RookieContracts({ players }) {
       <div className="sel-player-list">
         {players.map((p) => (
           <div key={p.name} className="sel-player sel-player-readonly">
-            <span className="sel-player-name">{p.name}</span>
+            <span className="sel-player-name">{p.name} {playerPositions[p.name] && <span className="player-pos">{playerPositions[p.name]}</span>}</span>
             <span className="badge badge-cyan">
               Rookie - expires {p.rookieStatus.expiryYear} - ${p.rookieStatus.salary}
             </span>

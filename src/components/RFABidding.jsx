@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { rfas2026, playerStats, rookieContracts, teamBudgets, rfaResults2026 } from "../data.js";
 import { computeTeamEligibility, getTeamNames } from "../eligibility.js";
+import { playerPositions } from "../playerPositions.js";
 
 const ROUND_COUNT = 3;
 
@@ -59,7 +60,7 @@ function BidRow({ player, owner, ownerCash, isMine, result, value, onChange }) {
   const stats = playerStats[player];
   return (
     <div className="sel-player sel-player-readonly bid-row">
-      <span className="sel-player-name">{player}</span>
+      <span className="sel-player-name">{player} {playerPositions[player] && <span className="player-pos">{playerPositions[player]}</span>}</span>
       <span className="bid-owner">
         {isMine ? "your RFA" : owner}
         {!isMine && !result && ownerCash && (

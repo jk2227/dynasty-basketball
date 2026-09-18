@@ -989,6 +989,18 @@ body {
 }
 .bid-owner-cash { text-transform: none; letter-spacing: normal; }
 
+.player-pos {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05rem 0.3rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 .team-cash-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
