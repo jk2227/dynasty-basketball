@@ -8,7 +8,7 @@ export const ROSTER_SIZE = 15;
 // Everyone else was released to the free agent pool.
 // Note: De'Aaron Fox is listed as a Frequency Vibes keeper in the league sheet (previously on Scranton).
 export const currentRosters = {
-  "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle", "Onyeka Okongwu"],
+  "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle", "Onyeka Okongwu", "Jaime Jaquez Jr."],
   "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
   "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis"],
   "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton", "Jalen Suggs", "Christian Anderson Jr."],
@@ -17,7 +17,7 @@ export const currentRosters = {
   "Boston Jellyfam": ["Anthony Edwards", "RJ Barrett", "Austin Reaves", "Luka Doncic", "Zion Williamson", "Ja Morant", "Scoot Henderson", "VJ Edgecombe", "Dereck Lively II", "Zach Edey", "Caleb Wilson", "Aday Mara", "Ryan Rollins"],
   "Wolf Wall": ["Stephen Curry", "Bam Adebayo", "Pascal Siakam", "Deni Avdija", "Desmond Bane", "Payton Pritchard", "Jaden McDaniels", "Thomas Sorber", "Darryn Peterson", "Yanic Konan Niederhauser", "LeBron James"],
   "Samsung Synchro": ["Jayson Tatum", "Jalen Johnson", "Walker Kessler", "Norman Powell", "Brandon Miller", "Ace Bailey", "Maxime Raynaud", "Cameron Boozer", "Khaman Maluach", "Joel Embiid", "Kristaps Porzingis", "Kyrie Irving"],
-  "Frequency Vibes": ["Alperen Sengun", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Keegan Murray", "Jaime Jaquez Jr.", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain", "Giannis Antetokounmpo"],
+  "Frequency Vibes": ["Alperen Sengun", "Dejounte Murray", "Miles Bridges", "De'Aaron Fox", "Keegan Murray", "Keyonte George", "Nolan Traore", "Derik Queen", "Jeremiah Fears", "AJ Dybantsa", "Yaxel Lendeborg", "Morez Johnson Jr.", "Hannes Steinbach", "Dailyn Swain", "Giannis Antetokounmpo"],
 };
 
 // 2026 Keepers (official selections, going into 2026-2027 season)
@@ -41,7 +41,7 @@ export const rfas2026 = {
   "Nuclear Guam": ["Mark Williams", "Jamal Murray", "Paul George"],
   "Richmond Rogues": ["Darius Garland", "LeBron James", "Jaylen Brown"],
   "Scranton Stranglers": ["Joel Embiid", "Ryan Rollins", "Immanuel Quickley"],
-  "Team Droptop": ["LaMelo Ball", "Jalen Williams", "Julius Randle", "Onyeka Okongwu"],
+  "Team Droptop": ["LaMelo Ball", "Jalen Williams", "Julius Randle", "Onyeka Okongwu", "Jaime Jaquez Jr."],
   "Samsung Synchro": ["Paolo Banchero", "Rudy Gobert", "Norman Powell"],
   "Tompkins CAT": ["Tyrese Haliburton", "Kristaps Porzingis", "Jalen Suggs"],
   "Tysons Traffic": ["Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan"],
