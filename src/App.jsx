@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { computeTeamEligibility, getFreeAgents, getEligibleForRookieDraft, getTeamNames } from "./eligibility.js";
-import { playerStats, teamBudgets, keepers2026, rfas2026, rfaResults2026, ROSTER_SIZE } from "./data.js";
+import { playerStats, teamBudgets, keepers2026, rfas2026, rfaResults2026, auction2026, ROSTER_SIZE } from "./data.js";
 import { espnPlayerIds } from "./playerIds.js";
 import { playerPositions } from "./playerPositions.js";
 import { useAuth } from "./hooks/useAuth.js";
@@ -204,8 +204,11 @@ function TeamView({ teamName }) {
   const rookies = players.filter(
     (p) => p.onRookieDeal && !keeperSet.has(p.name) && !rfaSet.has(p.name) && !rfaResults[p.name]
   );
+  // Players bought at the 2026 FA auction (IR-slot buys don't count against the 15)
+  const auctionSigned = players.filter((p) => auction2026[p.name]);
+  const auctionActive = auctionSigned.filter((p) => !auction2026[p.name].ir).length;
   // Pending RFAs don't count against the roster limit; settled ones (matched or signed) do
-  const freeSpace = ROSTER_SIZE - keepers.length - rookies.length - rfaSignings.length;
+  const freeSpace = ROSTER_SIZE - keepers.length - rookies.length - rfaSignings.length - auctionActive;
 
   const budget = teamBudgets[teamName];
   const rookieFees = rookies.reduce((sum, p) => sum + p.rookieStatus.salary, 0);
@@ -299,6 +302,22 @@ function TeamView({ teamName }) {
               <span className="badge badge-orange">Won via RFA - ${result.price}</span>
             );
           }} />
+        </div>
+      )}
+
+      {auctionSigned.length > 0 && (
+        <div className="section">
+          <div className="section-header">
+            <div className="section-dot dot-blue" />
+            <span className="section-title">Auction Signings</span>
+            <span className="section-count">{auctionSigned.length}</span>
+          </div>
+          <TeamSectionTable players={auctionSigned} extraColumn={(p) => (
+            <>
+              <span className="badge badge-cyan">Auction - ${auction2026[p.name].price}</span>
+              {auction2026[p.name].ir && <span className="badge badge-gray" style={{marginLeft: 4}}>IR slot</span>}
+            </>
+          )} />
         </div>
       )}
 
@@ -600,9 +619,10 @@ function OffseasonPlanView({ user, authLoading, signIn, signOut, myTeam, claimed
     const fees = rookies.reduce((sum, p) => sum + p.rookieStatus.salary, 0);
     // Settled RFAs (won signings + own matched RFAs) occupy roster slots
     const settledOnRoster = players.filter((p) => rfaResults[p.name]);
+    const auctionActive = players.filter((p) => auction2026[p.name] && !auction2026[p.name].ir).length;
     return {
       budgetAfterFees: (teamBudgets[myTeam] ?? 0) - fees,
-      freeSlots: ROSTER_SIZE - keeperSet.size - rookies.length - settledOnRoster.length,
+      freeSlots: ROSTER_SIZE - keeperSet.size - rookies.length - settledOnRoster.length - auctionActive,
     };
   }, [myTeam]);
 

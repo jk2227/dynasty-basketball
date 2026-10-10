@@ -9,8 +9,8 @@ export const ROSTER_SIZE = 15;
 // Note: De'Aaron Fox is listed as a Frequency Vibes keeper in the league sheet (previously on Scranton).
 export const currentRosters = {
   "Team Droptop": ["Donovan Mitchell", "Jalen Brunson", "Devin Booker", "Cade Cunningham", "Jalen Williams", "Julius Randle", "Onyeka Okongwu", "Jaime Jaquez Jr."],
-  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer"],
-  "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis"],
+  "Tompkins CAT": ["Nikola Jokic", "James Harden", "Evan Mobley", "Trey Murphy III", "Victor Wembanyama", "Kon Knueppel", "Cedric Coward", "Darius Acuff Jr.", "Brayden Burries", "Joan Beringer", "Brandon Ingram"],
+  "Tysons Traffic": ["Shai Gilgeous-Alexander", "Kawhi Leonard", "Trae Young", "Scottie Barnes", "Franz Wagner", "DeMar DeRozan", "Ausar Thompson", "Donovan Clingan", "Kel'el Ware", "Reed Sheppard", "Alex Sarr", "Egor Demin", "Kasparas Jakucionis", "Domantas Sabonis", "Jimmy Butler"],
   "Scranton Stranglers": ["Tyrese Maxey", "Josh Giddey", "Derrick White", "OG Anunoby", "Immanuel Quickley", "Amen Thompson", "Chet Holmgren", "Matas Buzelis", "Cooper Flagg", "Tyrese Haliburton", "Jalen Suggs", "Christian Anderson Jr."],
   "Nuclear Guam": ["Kevin Durant", "Anthony Davis", "Jaren Jackson Jr.", "Karl-Anthony Towns", "Mark Williams", "Jamal Murray", "Paul George", "Dylan Harper", "Bilal Coulibaly", "Zaccharie Risacher", "Collin Murray-Boyles", "Keaton Wagler", "Kingston Flemings", "LaMelo Ball"],
   "Richmond Rogues": ["Lauri Markkanen", "Michael Porter Jr.", "Mikal Bridges", "Josh Hart", "Darius Garland", "Jaylen Brown", "Stephon Castle", "Kyle Filipowski", "Tre Johnson", "Mikel Brown Jr.", "Nate Ament", "Rudy Gobert", "Jalen Duren", "Paolo Banchero"],
@@ -60,8 +60,8 @@ export const teamBudgets = {
   "Scranton Stranglers": 19,
   "Team Droptop": 67,
   "Samsung Synchro": 248,
-  "Tompkins CAT": 256,
-  "Tysons Traffic": 122,
+  "Tompkins CAT": 253,
+  "Tysons Traffic": 108,
   "Wolf Wall": 92,
 };
 
@@ -108,6 +108,13 @@ export const rfaResults2026 = {
     "Paul George": { winningBid: 42, bidder: "Tompkins CAT", matched: true, price: 37.8 },
     "Norman Powell": { winningBid: 36, bidder: "Boston Jellyfam", matched: true, price: 32.4 },
   },
+};
+
+// 2026 FA auction results. ir=true means the player was bought in the offline
+// IR-eligible auction and occupies an IR slot (does not count against the 15).
+export const auction2026 = {
+  "Jimmy Butler": { team: "Tysons Traffic", price: 14, ir: true },
+  "Brandon Ingram": { team: "Tompkins CAT", price: 3, ir: true },
 };
 
 // 2025 Keepers (going into 2025-2026 season)
