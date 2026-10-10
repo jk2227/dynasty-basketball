@@ -41,7 +41,7 @@ export const rfas2026 = {
   "Nuclear Guam": ["Mark Williams", "Jamal Murray", "Paul George"],
   "Richmond Rogues": ["Darius Garland", "LeBron James", "Jaylen Brown"],
   "Scranton Stranglers": ["Joel Embiid", "Ryan Rollins", "Immanuel Quickley"],
-  "Team Droptop": ["LaMelo Ball", "Jalen Williams", "Julius Randle", "Onyeka Okongwu", "Jaime Jaquez Jr."],
+  "Team Droptop": ["LaMelo Ball", "Jalen Williams", "Julius Randle"],
   "Samsung Synchro": ["Paolo Banchero", "Rudy Gobert", "Norman Powell"],
   "Tompkins CAT": ["Tyrese Haliburton", "Kristaps Porzingis", "Jalen Suggs"],
   "Tysons Traffic": ["Franz Wagner", "Onyeka Okongwu", "DeMar DeRozan"],
